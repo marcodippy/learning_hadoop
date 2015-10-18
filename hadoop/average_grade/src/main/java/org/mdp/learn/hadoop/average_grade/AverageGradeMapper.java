@@ -7,17 +7,21 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class AverageGradeMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class AverageGradeMapper extends Mapper<LongWritable, Text, ClassAndStudentWritable, IntWritable> {
 	private Text word = new Text();
 	private IntWritable age = new IntWritable();
 
+	private static final int CLASS_INDEX = 0;
+	private static final int STUDENT_NAME_INDEX = 1;
+	private static final int GRADE_INDEX = 2;
+
 	@Override
-	protected void map(LongWritable key, Text value, Mapper<LongWritable, Text, Text, IntWritable>.Context context)
+	protected void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
-		String line = value.toString();
-		String[] fields = line.split(";");
-		word.set(fields[0]);
-		age.set(Integer.parseInt(fields[2].trim()));
+		String[] fields = value.toString().split(";");
+
+		word.set(fields[CLASS_INDEX].trim());
+		age.set(Integer.parseInt(fields[GRADE_INDEX].trim()));
 		context.write(word, age);
 	}
 
