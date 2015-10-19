@@ -9,7 +9,7 @@ import org.apache.hadoop.util.ToolRunner;
 import org.mdp.learn.hadoop.commons.HdfsUtils;
 import org.mdp.learn.hadoop.commons.JobBuilder;
 
-public class AverateGradeDriver extends Configured implements Tool {
+public class AverageGradeDriver extends Configured implements Tool {
   public int run(String[] args) throws Exception {
     Job job = JobBuilder.parseInputAndOutput(this, getConf(), args);
 
@@ -28,6 +28,6 @@ public class AverateGradeDriver extends Configured implements Tool {
   }
 
   public static void main(String[] args) throws Exception {
-    System.exit(ToolRunner.run(new AverateGradeDriver(), args));
+    System.exit(ToolRunner.run(new AverageGradeDriver(), args));
   }
 }
