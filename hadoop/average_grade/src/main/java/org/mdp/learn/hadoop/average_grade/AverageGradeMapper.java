@@ -7,22 +7,22 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class AverageGradeMapper extends Mapper<LongWritable, Text, ClassAndStudentWritable, IntWritable> {
-	private Text word = new Text();
-	private IntWritable age = new IntWritable();
+public class AverageGradeMapper extends Mapper<LongWritable, Text, CourseAndStudentWritable, IntWritable> {
+  private static final int               COURSE_INDEX  = 0;
+  private static final int               STUDENT_INDEX = 1;
+  private static final int               GRADE_INDEX   = 2;
 
-	private static final int CLASS_INDEX = 0;
-	private static final int STUDENT_NAME_INDEX = 1;
-	private static final int GRADE_INDEX = 2;
+  private final CourseAndStudentWritable mapKey        = new CourseAndStudentWritable();
+  private final IntWritable              grade         = new IntWritable();
 
-	@Override
-	protected void map(LongWritable key, Text value, Context context)
-			throws IOException, InterruptedException {
-		String[] fields = value.toString().split(";");
+  @Override
+  protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+    String[] fields = value.toString().split(";");
 
-		word.set(fields[CLASS_INDEX].trim());
-		age.set(Integer.parseInt(fields[GRADE_INDEX].trim()));
-		context.write(word, age);
-	}
+    mapKey.set(fields[COURSE_INDEX].trim(), fields[STUDENT_INDEX].trim());
+    grade.set(Integer.parseInt(fields[GRADE_INDEX].trim()));
+
+    context.write(mapKey, grade);
+  }
 
 }
