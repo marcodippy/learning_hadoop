@@ -1,9 +1,45 @@
-CL1; Marco Di Paola; 28
-CL1; Luca Di Paola; 19
-CL1; Fabio Leballa; 25
-CL2; Luca Liovanti; 29
-CL2; Gordon Gorers; 39
-CL3; Paolo Regioli; 45
-CL4; Murray Tiat; 50
-CL4; Larry Page; 44
-CL4; Mark Zuckerberg; 128
+Algorithms;Murray;96
+Functional programming;Gordon;93
+Semantic Web Systems;Murray;81
+Algorithms;Luca;74
+Semantic Web Systems;Fabio;82
+Database;Fabio;86
+Machine Learning;Gordon;90
+Database;Murray;85
+Machine Learning;Luca;67
+Distributed Systems;Luca;63
+Physics;Fabio;75
+Operative Systems;Gordon;95
+Physics;Luca;86
+Automated Reasoning;Gordon;85
+Semantic Web Systems;Gordon;92
+Database;Luca;76
+Operative Systems;Murray;85
+Automated Reasoning;Luca;61
+Semantic Web Systems;Marco;78
+Distributed Systems;Fabio;92
+Machine Learning;Marco;88
+Distributed Systems;Gordon;73
+Physics;Marco;77
+Functional programming;Luca;69
+Database;Marco;64
+Distributed Systems;Marco;90
+Automated Reasoning;Murray;88
+Database;Gordon;77
+Algorithms;Fabio;95
+Physics;Gordon;97
+Functional programming;Fabio;67
+Machine Learning;Fabio;83
+Semantic Web Systems;Luca;84
+Operative Systems;Fabio;67
+Algorithms;Gordon;91
+Automated Reasoning;Fabio;96
+Distributed Systems;Murray;64
+Automated Reasoning;Marco;76
+Operative Systems;Luca;85
+Machine Learning;Murray;66
+Functional programming;Murray;95
+Physics;Murray;82
+Functional programming;Marco;80
+Operative Systems;Marco;85
+Algorithms;Marco;69
