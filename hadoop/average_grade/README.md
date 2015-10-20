@@ -52,20 +52,29 @@ Remember that the partition phase happens on the map side.
 - - - -
 
 ### CourseAndStudentKeyComparator ###
-This custom WritableComparator is used to sort the Map outputs; here we specify that we want the courses sorted in ascending order and the students in descending order.
+This custom WritableComparator is used to sort the Map outputs; here we specify that we want the courses sorted in ascending order and the students in descending order (the compareTo() method of CourseAndStudentWritable would have sorted rows by course and student both in ascending order).
 This phase happens on the map side.
 - - - -
 
 ### CourseAndStudentKeyGroupingComparator ###
-This happens on the reduce side: records arriving from several mappers must be grouped by the key and this is exactly the meaning of the GroupingComparator.
+This happens on the reduce side: records arriving from several mappers must be grouped by the key and this is exactly the meaning of the GroupingComparator. It's configured using job.setGroupingComparatorClass().
 Supposing that a mapper emits (K1, V1), (K1, V2), (K2, V3), the reducer should receive (K1,[V1, V2, V3]); this magic is done by the GroupingComparator.
+If a custom grouping comparator is not specified for the job, the compareTo() method of the WritableComparable (key) class is invoked. 
+Creating a custom GroupingComparator wasn't really needed for this exercise since the default compareTo() method of the CourseAndStudentWritable class already contains the correct grouping logic.   
 - - - -
 
 ### Reduce ###
-Reducer receives data in the form ({course, student}, grades[]) and calculates the average of the grades.
+Reducer receives data in the form ({course, student}, grades[]) and calculates the average of the grades.  
+  
+    
+- - - -
+- - - -
 
-
-
+## Flow ##
+### Map side ###
+Collector --> Partitioner --> Spill --> Comparator --> Local Disk (HDFS) <-- MapOutputServlet
+### Reduce side ###
+MapOutputServlet --> Copy to Local Disk (HDFS) --> Group --> Reduce
 
 
 
