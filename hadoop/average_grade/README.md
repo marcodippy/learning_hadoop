@@ -4,21 +4,21 @@ Given a semicolon delimited file containing a list of grades of students in seve
 
 ## Example: ##
 ### Input ###
-  `Database; Marco; 100  
+  Database; Marco; 100  
   Algorithms; Fabio; 84  
-  Database; Marco; 90
-  Algorithms; Marco; 88
-  Algorithms; Marco; 84
-  Database; Marco; 95
-  Algorithms; Fabio; 80
-  Database; Fabio; 82
-  Database; Fabio; 84
-  Algorithms; Marco; 86
-  Database; Fabio; 80
-  Algorithms; Fabio; 82`
-
+  Database; Marco; 90  
+  Algorithms; Marco; 88  
+  Algorithms; Marco; 84  
+  Database; Marco; 95  
+  Algorithms; Fabio; 80  
+  Database; Fabio; 82  
+  Database; Fabio; 84  
+  Algorithms; Marco; 86  
+  Database; Fabio; 80  
+  Algorithms; Fabio; 82  
+  
 ### Output ###
-  `Algorithms; Marco; 86
-  Algorithms; Fabio; 82
-  Database; Marco; 95
-  Database; Fabio; 84`
+  Algorithms; Marco; 86  
+  Algorithms; Fabio; 82  
+  Database; Marco; 95  
+  Database; Fabio; 84
