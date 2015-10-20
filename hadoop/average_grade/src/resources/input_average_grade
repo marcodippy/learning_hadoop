@@ -1,45 +1,120 @@
-Algorithms;Murray;96
-Functional programming;Gordon;93
-Semantic Web Systems;Murray;81
-Algorithms;Luca;74
-Semantic Web Systems;Fabio;82
-Database;Fabio;86
-Machine Learning;Gordon;90
-Database;Murray;85
-Machine Learning;Luca;67
-Distributed Systems;Luca;63
-Physics;Fabio;75
-Operative Systems;Gordon;95
-Physics;Luca;86
-Automated Reasoning;Gordon;85
-Semantic Web Systems;Gordon;92
-Database;Luca;76
-Operative Systems;Murray;85
-Automated Reasoning;Luca;61
-Semantic Web Systems;Marco;78
-Distributed Systems;Fabio;92
-Machine Learning;Marco;88
-Distributed Systems;Gordon;73
-Physics;Marco;77
-Functional programming;Luca;69
-Database;Marco;64
-Distributed Systems;Marco;90
-Automated Reasoning;Murray;88
-Database;Gordon;77
-Algorithms;Fabio;95
-Physics;Gordon;97
+Database;Fabio;82
+Semantic Web Systems;Murray;75
+Algorithms;Murray;79
+Operative Systems;Luca;67
+Operative Systems;Luca;87
+Physics;Murray;67
+Operative Systems;Murray;60
+Machine Learning;Marco;69
+Database;Marco;69
+Database;Murray;67
+Physics;Gordon;86
+Machine Learning;Luca;96
+Semantic Web Systems;Fabio;64
+Distributed Systems;Fabio;60
+Operative Systems;Gordon;76
+Database;Murray;64
+Functional programming;Luca;96
+Distributed Systems;Murray;66
+Semantic Web Systems;Luca;72
+Database;Luca;84
+Database;Marco;92
+Physics;Marco;90
+Semantic Web Systems;Luca;99
+Database;Luca;74
+Algorithms;Gordon;67
+Distributed Systems;Marco;60
+Physics;Luca;83
+Physics;Murray;67
+Machine Learning;Gordon;97
+Database;Luca;93
+Distributed Systems;Fabio;60
+Algorithms;Fabio;68
+Distributed Systems;Marco;79
+Algorithms;Marco;91
+Machine Learning;Marco;74
+Physics;Fabio;95
+Functional programming;Marco;84
+Operative Systems;Murray;63
+Distributed Systems;Luca;91
+Semantic Web Systems;Fabio;85
+Algorithms;Murray;63
+Database;Marco;61
+Distributed Systems;Luca;86
+Distributed Systems;Gordon;85
+Semantic Web Systems;Gordon;89
+Machine Learning;Murray;88
+Algorithms;Fabio;81
+Database;Gordon;92
+Semantic Web Systems;Marco;65
+Physics;Luca;97
+Functional programming;Luca;84
+Operative Systems;Gordon;89
+Semantic Web Systems;Gordon;81
+Distributed Systems;Luca;87
+Distributed Systems;Gordon;91
 Functional programming;Fabio;67
-Machine Learning;Fabio;83
-Semantic Web Systems;Luca;84
-Operative Systems;Fabio;67
-Algorithms;Gordon;91
-Automated Reasoning;Fabio;96
-Distributed Systems;Murray;64
-Automated Reasoning;Marco;76
-Operative Systems;Luca;85
-Machine Learning;Murray;66
+Algorithms;Luca;92
+Physics;Fabio;60
+Algorithms;Marco;66
+Operative Systems;Fabio;83
+Physics;Gordon;65
+Machine Learning;Gordon;95
+Algorithms;Luca;85
+Machine Learning;Murray;73
+Algorithms;Gordon;71
+Functional programming;Marco;86
+Functional programming;Murray;64
+Database;Gordon;93
+Distributed Systems;Murray;63
+Functional programming;Luca;85
+Operative Systems;Marco;89
+Database;Gordon;67
+Algorithms;Fabio;75
+Database;Fabio;75
+Machine Learning;Fabio;67
+Operative Systems;Fabio;89
+Semantic Web Systems;Marco;65
+Operative Systems;Gordon;64
+Semantic Web Systems;Gordon;92
+Distributed Systems;Gordon;80
+Functional programming;Fabio;71
+Operative Systems;Murray;82
+Functional programming;Gordon;85
+Operative Systems;Marco;87
+Physics;Luca;99
+Semantic Web Systems;Fabio;90
+Machine Learning;Luca;84
+Functional programming;Gordon;79
+Semantic Web Systems;Marco;78
+Algorithms;Luca;62
+Machine Learning;Marco;62
+Algorithms;Gordon;93
+Functional programming;Fabio;64
+Machine Learning;Murray;89
+Machine Learning;Gordon;82
+Physics;Marco;60
+Distributed Systems;Murray;97
+Physics;Murray;60
+Machine Learning;Luca;78
+Operative Systems;Fabio;79
+Physics;Fabio;98
+Machine Learning;Fabio;93
+Operative Systems;Marco;93
 Functional programming;Murray;95
-Physics;Murray;82
-Functional programming;Marco;80
-Operative Systems;Marco;85
-Algorithms;Marco;69
+Physics;Marco;65
+Distributed Systems;Fabio;92
+Semantic Web Systems;Murray;70
+Functional programming;Marco;82
+Database;Fabio;77
+Physics;Gordon;71
+Database;Murray;82
+Algorithms;Marco;73
+Distributed Systems;Marco;90
+Operative Systems;Luca;97
+Machine Learning;Fabio;61
+Algorithms;Murray;83
+Semantic Web Systems;Murray;95
+Functional programming;Gordon;62
+Semantic Web Systems;Luca;99
+Functional programming;Murray;60

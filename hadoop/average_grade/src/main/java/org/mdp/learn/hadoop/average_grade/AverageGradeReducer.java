@@ -17,7 +17,7 @@ public class AverageGradeReducer extends Reducer<CourseAndStudentWritable, IntWr
       count++;
     }
 
-    context.write(key, new FloatWritable(sum / count));
+    context.write(key, new FloatWritable((float) sum / count));
   }
 
 }

@@ -22,6 +22,8 @@ public class AverageGradeDriver extends Configured implements Tool {
     job.setOutputKeyClass(CourseAndStudentWritable.class);
     job.setOutputValueClass(IntWritable.class);
 
+    job.getConfiguration().set("mapreduce.output.textoutputformat.separator", AverageGradeJobConstants.OUTPUT_FIELD_SEPARATOR);
+
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
 
     return job.waitForCompletion(true) ? 0 : 1;

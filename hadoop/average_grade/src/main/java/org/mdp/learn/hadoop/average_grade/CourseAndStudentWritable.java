@@ -58,7 +58,7 @@ public class CourseAndStudentWritable implements WritableComparable<CourseAndStu
 
   @Override
   public String toString() {
-    return course + " -- " + student;
+    return course + AverageGradeJobConstants.OUTPUT_FIELD_SEPARATOR + student;
   }
 
   @Override
