@@ -23,5 +23,49 @@ Given a semicolon delimited file containing a list of grades of students in seve
   Database, Marco, 95  
   Database, Fabio, 84
   
+- - - - 
+- - - - 
 
-## Example: ##
+## Notes: ##
+### Map ###
+Mapper emits a key-value pair for each row in the file in this form ({course, student}, grade).
+- - - - 
+
+### CourseAndStudentKey ###
+A custom WritableComparable type has been created to hold the composite key {course, student}.  
+Note: if you want to create a custom type that will be used only as a value (and NOT as a key), implementing Writable is enough. 
+
+#### toString() ####
+You need to implement the toString() method if you want to use the TextOutputFormat
+
+#### hashCode() ####
+hashCode() method is used by the default partitioner (HashPartitioner). You can override this by creating a custom partitioner and configuring the job to use it with the method job.setPartitionerClass()
+
+#### compareTo() ####
+compareTo() method is used by the default comparator to define the order of the records depending on the key. You can override this by creating a custom WritableComparator and configuring the job to use it with the method job.setSortComparatorClass()
+- - - - 
+
+### CourseAndStudentKeyPartitioner ###
+The default partitioner is HashPartitioner, which hashes a record’s key to determine which partition the record belongs in. Each partition is processed by a reduce task. Each reducer create an output file.
+We want all the records related to a specific course appearing in the same output file; to achieve that, a custom partitioner that calculates the hash only on the course is created: in this way all the records for a course will end up in the same partition.
+Remember that the partition phase happens on the map side. 
+- - - -
+
+### CourseAndStudentKeyComparator ###
+This custom WritableComparator is used to sort the Map outputs; here we specify that we want the courses sorted in ascending order and the students in descending order.
+This phase happens on the map side.
+- - - -
+
+### CourseAndStudentKeyGroupingComparator ###
+This happens on the reduce side: records arriving from several mappers must be grouped by the key and this is exactly the meaning of the GroupingComparator 
+- - - -
+
+### Reduce ###
+Reducer receives data in the form ({course, student}, grades[]) and calculates the average of the grades.
+
+
+
+
+
+
+
