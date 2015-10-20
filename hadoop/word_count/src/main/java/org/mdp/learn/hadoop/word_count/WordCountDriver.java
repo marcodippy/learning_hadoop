@@ -2,8 +2,6 @@ package org.mdp.learn.hadoop.word_count;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -17,9 +15,6 @@ public class WordCountDriver extends Configured implements Tool {
     job.setMapperClass(WordCountMapper.class);
     job.setCombinerClass(WordCountReducer.class);
     job.setReducerClass(WordCountReducer.class);
-
-    job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(IntWritable.class);
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
 
