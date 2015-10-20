@@ -31,7 +31,7 @@ Given a semicolon delimited file containing a list of grades of students in seve
 Mapper emits a key-value pair for each row in the file in this form ({course, student}, grade).
 - - - - 
 
-### CourseAndStudentKey ###
+### CourseAndStudentWritable ###
 A custom WritableComparable type has been created to hold the composite key {course, student}.  
 Note: if you want to create a custom type that will be used only as a value (and NOT as a key), implementing Writable is enough. 
 
@@ -57,7 +57,8 @@ This phase happens on the map side.
 - - - -
 
 ### CourseAndStudentKeyGroupingComparator ###
-This happens on the reduce side: records arriving from several mappers must be grouped by the key and this is exactly the meaning of the GroupingComparator 
+This happens on the reduce side: records arriving from several mappers must be grouped by the key and this is exactly the meaning of the GroupingComparator.
+Supposing that a mapper emits (K1, V1), (K1, V2), (K2, V3), the reducer should receive (K1,[V1, V2, V3]); this magic is done by the GroupingComparator.
 - - - -
 
 ### Reduce ###
