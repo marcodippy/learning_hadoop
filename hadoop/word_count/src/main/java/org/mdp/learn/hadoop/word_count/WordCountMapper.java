@@ -14,21 +14,12 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 
   @Override
   public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-    String line = value.toString();
-
-    StringTokenizer tokenizer = new StringTokenizer(line);
+    StringTokenizer tokenizer = new StringTokenizer(value.toString());
+    
     while (tokenizer.hasMoreTokens()) {
-      word.set(tokenizer.nextToken());
+      String token = tokenizer.nextToken().replaceAll("[, . ; :]", "").toLowerCase();
+      word.set(token);
       context.write(word, ONE);
     }
   }
-
-  public void run(Context context) throws IOException, InterruptedException {
-    setup(context);
-    while (context.nextKeyValue()) {
-      map(context.getCurrentKey(), context.getCurrentValue(), context);
-    }
-    cleanup(context);
-  }
-
 }
