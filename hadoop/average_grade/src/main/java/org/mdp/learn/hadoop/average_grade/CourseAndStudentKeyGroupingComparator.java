@@ -3,14 +3,9 @@ package org.mdp.learn.hadoop.average_grade;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
-/**
- * Without this class, rows related to the same course but different student may
- * go to different reducers. We need to rely only on the natural key (course).
- * This code is executed on the Reducer
- */
-public class CourseAndStudentNaturalKeyGroupingComparator extends WritableComparator {
+public class CourseAndStudentKeyGroupingComparator extends WritableComparator {
 
-  protected CourseAndStudentNaturalKeyGroupingComparator() {
+  protected CourseAndStudentKeyGroupingComparator() {
     super(CourseAndStudentWritable.class, true);
   }
 

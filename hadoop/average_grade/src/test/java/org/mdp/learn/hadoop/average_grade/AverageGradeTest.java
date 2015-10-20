@@ -31,7 +31,7 @@ public class AverageGradeTest {
     mapRedDriver = MapReduceDriver.newMapReduceDriver(mapper, reducer);
 
     mapRedDriver.setKeyOrderComparator(new CourseAndStudentKeyComparator());
-    mapRedDriver.setKeyGroupingComparator(new CourseAndStudentNaturalKeyGroupingComparator());
+    mapRedDriver.setKeyGroupingComparator(new CourseAndStudentKeyGroupingComparator());
   }
 
   @Test

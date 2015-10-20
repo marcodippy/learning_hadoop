@@ -14,9 +14,9 @@ public class AverageGradeDriver extends Configured implements Tool {
     Job job = JobBuilder.parseInputAndOutput(this, getConf(), args);
 
     job.setMapperClass(AverageGradeMapper.class);
-    job.setPartitionerClass(CourseAndStudentNaturalKeyPartitioner.class);
+    job.setPartitionerClass(CourseAndStudentKeyPartitioner.class);
     job.setSortComparatorClass(CourseAndStudentKeyComparator.class);
-    job.setGroupingComparatorClass(CourseAndStudentNaturalKeyGroupingComparator.class);
+    job.setGroupingComparatorClass(CourseAndStudentKeyGroupingComparator.class);
     job.setReducerClass(AverageGradeReducer.class);
 
     job.setOutputKeyClass(CourseAndStudentWritable.class);

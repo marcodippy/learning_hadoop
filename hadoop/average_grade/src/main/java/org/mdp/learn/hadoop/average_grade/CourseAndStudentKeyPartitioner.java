@@ -3,7 +3,7 @@ package org.mdp.learn.hadoop.average_grade;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Partitioner;
 
-public class CourseAndStudentNaturalKeyPartitioner extends Partitioner<CourseAndStudentWritable, IntWritable> {
+public class CourseAndStudentKeyPartitioner extends Partitioner<CourseAndStudentWritable, IntWritable> {
 
   @Override
   public int getPartition(CourseAndStudentWritable mapKey, IntWritable grade, int numReduceTasks) {

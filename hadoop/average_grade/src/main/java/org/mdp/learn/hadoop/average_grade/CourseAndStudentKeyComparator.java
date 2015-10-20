@@ -3,10 +3,6 @@ package org.mdp.learn.hadoop.average_grade;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
-/**
- * This is the class actually involved in the secondary sort: it orders the rows
- * per course and then per student in descending order
- */
 public class CourseAndStudentKeyComparator extends WritableComparator {
 
   protected CourseAndStudentKeyComparator() {
