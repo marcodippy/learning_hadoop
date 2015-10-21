@@ -16,7 +16,7 @@ public class CourseAndStudentKeyGroupingComparator extends WritableComparator {
     CourseAndStudentWritable casw2 = (CourseAndStudentWritable) b;
 
     int cmp = casw1.getCourse().compareTo(casw2.getCourse());
-    return (cmp != 0) ? cmp : 1 * (casw1.getStudent().compareTo(casw2.getStudent()));
+    return (cmp != 0) ? cmp : (casw1.getStudent().compareTo(casw2.getStudent()));
   }
 
 }
