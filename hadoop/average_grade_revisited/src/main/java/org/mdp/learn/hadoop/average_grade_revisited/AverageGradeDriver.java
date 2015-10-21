@@ -15,9 +15,12 @@ public class AverageGradeDriver extends Configured implements Tool {
     job.setMapperClass(AverageGradeMapper.class);
     job.setPartitionerClass(CourseAndStudentKeyPartitioner.class);
     job.setSortComparatorClass(CourseAndStudentKeyComparator.class);
-    job.setGroupingComparatorClass(CourseAndStudentKeyGroupingComparator.class);
+    job.setGroupingComparatorClass(CourseAndStudentKeyComparator.class);
     job.setReducerClass(AverageGradeReducer.class);
 
+    job.setMapOutputKeyClass(CourseAndStudentWritable.class);
+    job.setMapOutputValueClass(Sum.class);
+    
     job.getConfiguration().set("mapreduce.output.textoutputformat.separator", AverageGradeJobConstants.OUTPUT_FIELD_SEPARATOR);
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
