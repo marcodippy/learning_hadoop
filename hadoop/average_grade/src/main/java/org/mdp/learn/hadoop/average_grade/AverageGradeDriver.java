@@ -2,6 +2,7 @@ package org.mdp.learn.hadoop.average_grade;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -17,6 +18,9 @@ public class AverageGradeDriver extends Configured implements Tool {
     job.setSortComparatorClass(CourseAndStudentKeyComparator.class);
     job.setGroupingComparatorClass(CourseAndStudentKeyGroupingComparator.class);
     job.setReducerClass(AverageGradeReducer.class);
+    
+    job.setMapOutputKeyClass(CourseAndStudentWritable.class);
+    job.setMapOutputValueClass(IntWritable.class);
 
     job.getConfiguration().set("mapreduce.output.textoutputformat.separator", AverageGradeJobConstants.OUTPUT_FIELD_SEPARATOR);
 
