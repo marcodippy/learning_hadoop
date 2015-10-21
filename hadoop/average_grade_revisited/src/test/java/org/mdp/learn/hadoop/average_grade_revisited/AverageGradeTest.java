@@ -100,15 +100,52 @@ public class AverageGradeTest {
 
   @Test
   public void testReducer() throws IOException {
-    List<Sum> values = new ArrayList<Sum>();
-    values.add(new Sum(50));
-    values.add(new Sum(55));
-    values.add(new Sum(51));
+    List<Sum> gradesMarco = new ArrayList<Sum>();
+    gradesMarco.add(new Sum(90));
+    gradesMarco.add(new Sum(95));
+    gradesMarco.add(new Sum(91));
+    
+    List<Sum> gradesFabio = new ArrayList<Sum>();
+    gradesFabio.add(new Sum(60));
+    gradesFabio.add(new Sum(65));
+    gradesFabio.add(new Sum(61));
 
-    reducerDriver.withInput(new CourseAndStudentWritable("Database", "Marco"), values);
-    reducerDriver.withOutput(new CourseAndStudentWritable("Database", "Marco"), new FloatWritable(52f));
+    List<Sum> gradesLuca = new ArrayList<Sum>();
+    gradesLuca.add(new Sum(70));
+    gradesLuca.add(new Sum(75));
+    gradesLuca.add(new Sum(71));
+    
+    reducerDriver.withInput(new CourseAndStudentWritable("Database", "Marco"), gradesMarco);
+    reducerDriver.withInput(new CourseAndStudentWritable("Database", "Fabio"), gradesFabio);
+    reducerDriver.withInput(new CourseAndStudentWritable("Database", "Luca"), gradesLuca);
+
+    reducerDriver.withInput(new CourseAndStudentWritable("Algorithms", "Marco"), gradesMarco);
+    reducerDriver.withInput(new CourseAndStudentWritable("Algorithms", "Fabio"), gradesFabio);
+    
+    reducerDriver.withOutput(new CourseAndStudentWritable("Database", "Marco"), new FloatWritable(92f));
+    reducerDriver.withOutput(new CourseAndStudentWritable("Database", "Fabio"), new FloatWritable(62f));
+    reducerDriver.withOutput(new CourseAndStudentWritable("Database", "Luca"), new FloatWritable(72f));
+    reducerDriver.withOutput(new CourseAndStudentWritable("Algorithms", "Marco"), new FloatWritable(92f));
+    reducerDriver.withOutput(new CourseAndStudentWritable("Algorithms", "Fabio"), new FloatWritable(62f));
 
     reducerDriver.runTest();
+    
+    Counter coursesCounter = reducerDriver.getCounters().findCounter(MyCounters.COURSES);
+    Counter studentsCounter = reducerDriver.getCounters().findCounter(MyCounters.STUDENTS);
+    assertThat(coursesCounter.getValue()).isEqualTo(2);
+    assertThat(studentsCounter.getValue()).isEqualTo(3);
+    
+    Counter studentsPerDatabaseCourse = reducerDriver.getCounters().findCounter("STUDENTS_PER_COURSE", "Database");
+    Counter studentsPerAlgorithmsCourse = reducerDriver.getCounters().findCounter("STUDENTS_PER_COURSE", "Algorithms");
+    assertThat(studentsPerDatabaseCourse.getValue()).isEqualTo(3);
+    assertThat(studentsPerAlgorithmsCourse.getValue()).isEqualTo(2);
+    
+    Counter coursesPerStudentMarco = reducerDriver.getCounters().findCounter("COURSES_PER_STUDENT", "Marco");
+    Counter coursesPerStudentFabio = reducerDriver.getCounters().findCounter("COURSES_PER_STUDENT", "Fabio");
+    Counter coursesPerStudentLuca = reducerDriver.getCounters().findCounter("COURSES_PER_STUDENT", "Luca");
+    assertThat(coursesPerStudentMarco.getValue()).isEqualTo(2);
+    assertThat(coursesPerStudentFabio.getValue()).isEqualTo(2);
+    assertThat(coursesPerStudentLuca.getValue()).isEqualTo(1);
   }
 
   @Test
