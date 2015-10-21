@@ -18,6 +18,7 @@ Functional programming;Luca;96
 Distributed Systems;Murray;66
 Semantic Web Systems;Luca;72
 Database;Luca;84
+;Marco; 66
 Database;Marco;92
 Physics;Marco;90
 Semantic Web Systems;Luca;99
@@ -26,12 +27,14 @@ Algorithms;Gordon;67
 Distributed Systems;Marco;60
 Physics;Luca;83
 Physics;Murray;67
+Database;67
 Machine Learning;Gordon;97
 Database;Luca;93
 Distributed Systems;Fabio;60
 Algorithms;Fabio;68
 Distributed Systems;Marco;79
 Algorithms;Marco;91
+Algorithms;Marco;191
 Machine Learning;Marco;74
 Physics;Fabio;95
 Functional programming;Marco;84
