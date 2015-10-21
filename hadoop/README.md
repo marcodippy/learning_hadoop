@@ -1,5 +1,5 @@
 # Learning Hadoop #
-This is a collection of project I've created to learn Hadoop with some notes.  
+This is a collection of projects I've created to learn Hadoop with some notes.  
   
 1. [Word Count](./word_count): the "Hello Word" of Hadoopers {basic Mapper and Reducer, Combiner}
 2. [Average Grade](./average_grade): {Secondary Sort, custom types and comparator}

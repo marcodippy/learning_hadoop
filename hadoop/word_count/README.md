@@ -1,6 +1,6 @@
 # Exercise #
 
-Given a file containing space separated words, count the occurrence of each word.
+Given a file containing space separated words, count the number of occurrences of each word.
 
 ## Example: ##
 ### Input ###
