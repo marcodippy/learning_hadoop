@@ -26,8 +26,8 @@ public class AverageGradeReducer extends Reducer<CourseAndStudentWritable, Sum, 
   }
 
   private void updateIntermediateCounters(CourseAndStudentWritable key) {
-    coursesCounter.put(key.getCourse(), coursesCounter.getOrDefault(key.getCourse(), 0) + 1);
-    studentsCounter.put(key.getStudent(), studentsCounter.getOrDefault(key.getStudent(), 0) + 1);
+    coursesCounter.put(new Text(key.getCourse()), coursesCounter.getOrDefault(key.getCourse(), 0) + 1);
+    studentsCounter.put(new Text(key.getStudent()), studentsCounter.getOrDefault(key.getStudent(), 0) + 1);
   }
 
   @Override
