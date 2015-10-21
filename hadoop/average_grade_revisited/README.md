@@ -20,6 +20,12 @@ New requirements:
 ## Notes: ##
 ### Improving performance ###
 #### In-memory combiner ####
+This pattern consists of combining results within the Mapper, before the keys are actually emitted.  
+The benefits are:
+* *Combining phase* is guaranteed to happen
+* reduced number of emitted keys to shuffle, sort and reduce (this means less overhead in disk/network I/O and in object creation/destruction/serialization/deserialization)
+
+The drawbacks is that the memory of the Mapper is a limit: if your intermediate data structure is too big you should implement some flushing mechanism.
 
 #### Raw Comparator ####
 - - - - 
