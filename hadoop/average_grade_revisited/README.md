@@ -40,12 +40,16 @@ Each object to be compared is identified with:
 Implementing a RawComparator is a little bit tricky and requires a bit of attention: the Text object is serialized prepending to the actual content a VIntWritable containing the size of the content; this VIntWritable has a (serialized) size that can vary from 1 to 5 bytes, and the actual size is stored in the leading byte of the array.
 So, considering that our custom type contains two Text object, a possible byte representation can be:  
 
-vInt length (1st obj) | vInt (1st obj) | text (1st obj) | vInt length (2nd obj) | vInt (2nd obj) | text (2nd obj) 
+VInt length (1st obj) | VInt (1st obj) | text (1st obj) | VInt length (2nd obj) | VInt (2nd obj) | text (2nd obj) 
 ------------- | ------------- |------------- | ------------- |------------- | ------------- |------------- | -------------  
 XXX  | YYY  | ZZZ  | ...  | ...  | ...  
-  
- 
+   
+Where
+* `XXX` is the total length of the VInt object representation (hence it defines the starting point for the actual text)
+* `YYY` is the total length of the text (then XXX + YYY gives the total length of the first Text object in our custom type)
+* `ZZZ` is the text content
 
+The rest is pretty obvious, (see the code)[./src/main/java/org/mdp/learn/hadoop/average_grade_revisited/CourseAndStudentKeyComparator.java]!
 
 - - - - 
 
