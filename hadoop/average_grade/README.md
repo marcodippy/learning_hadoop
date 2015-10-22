@@ -47,7 +47,7 @@ compareTo() method is used by the default comparator to define the order of the 
 
 ### CourseAndStudentKeyPartitioner ###
 The default partitioner is HashPartitioner, which hashes a record’s key to determine which partition the record belongs in. Each partition is processed by a reduce task. Each reducer create an output file.
-We want all the records related to a specific course appearing in the same output file; to achieve that, a custom partitioner that calculates the hash only on the course is created: in this way all the records for a course will end up in the same partition.
+We want all the records related to a specific course appearing in the same output file; to achieve that, a custom partitioner that calculates the hash only on the course has been created: in this way all the records for a course will end up in the same partition.
 Remember that the partition phase happens on the map side. 
 - - - -
 
