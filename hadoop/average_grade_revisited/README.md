@@ -33,6 +33,20 @@ Let's look at the implementation:
 ```java 
 public int compare(byte[] bytes_1, int start_1, int length_1, byte[] bytes_2, int start_2, int length_2)
 ```
+Each object to be compared is identified with:
+* `byte[] bytes` - You can easily figure out what is it.
+* `int start` - The object under comparison's starting index.
+* `int length` - The length of the object in the byte array.
+Implementing a RawComparator is a little bit tricky and requires a bit of attention: the Text object is serialized prepending to the actual content a VIntWritable containing the size of the content; this VIntWritable has a (serialized) size that can vary from 1 to 5 bytes, and the actual size is stored in the leading byte of the array.
+So, considering that our custom type contains two Text object, a possible byte representation can be:  
+
+First Header  | Second Header  
+------------- | -------------  
+Content Cell  | Content Cell  
+Content Cell  | Content Cell  
+ 
+
+
 - - - - 
 
 ### Bad input record handling ###
