@@ -49,7 +49,7 @@ Where
 * `YYY` is the total length of the text (then XXX + YYY gives the total length of the first Text object in our custom type)
 * `ZZZ` is the text content
 
-The rest is pretty obvious, (see the code)[./src/main/java/org/mdp/learn/hadoop/average_grade_revisited/CourseAndStudentKeyComparator.java]!
+The rest is pretty obvious,[see the code](./src/main/java/org/mdp/learn/hadoop/average_grade_revisited/CourseAndStudentKeyComparator.java)!
 
 - - - - 
 
