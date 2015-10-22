@@ -49,14 +49,19 @@ Where
 * `YYY` is the total length of the text (then XXX + YYY gives the total length of the first Text object in our custom type)
 * `ZZZ` is the text content
 
-The rest is pretty obvious,[see the code](./src/main/java/org/mdp/learn/hadoop/average_grade_revisited/CourseAndStudentKeyComparator.java)!
+The rest is pretty obvious, [see the code](./src/main/java/org/mdp/learn/hadoop/average_grade_revisited/CourseAndStudentKeyComparator.java)!
+
+** Raw Comparator test **  
+At the moment MRUnit doesn't support Raw Comparators, you can set it but it's completely ignored. You should test it separately
 
 - - - - 
 
 ### Bad input record handling ###
+Nothing special, I used some Counters to hold the count of bad input records.
 
 - - - -
 
 ### Counters ###
+Again, nothing special.
 
 - - - -
