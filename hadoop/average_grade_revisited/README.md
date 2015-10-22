@@ -20,7 +20,7 @@ New requirements:
 ## Notes: ##
 ### Improving performance ###
 #### In-memory combiner ####
-This pattern consists of combining results within the Mapper, before the keys are actually emitted.  
+This pattern consists in combining results within the Mapper, before the keys are actually emitted.  
 The benefits are:
 * *Combining phase* is guaranteed to happen
 * reduced number of emitted keys to shuffle, sort and reduce (this means less overhead in disk/network I/O and in object creation/destruction/serialization/deserialization)
@@ -28,6 +28,11 @@ The benefits are:
 The drawbacks is that the memory of the Mapper is a limit: if your intermediate data structure is too big you should implement some flushing mechanism.
 
 #### Raw Comparator ####
+There is an possible optimization for the [Comparator](../average_grade/src/main/java/org/mdp/learn/hadoop/average_grade/CourseAndStudentKeyComparator.java) implemented in the previous project: in this case, objects need to be deserialized to be compared, while is it possible performing this comparison looking only at their serialized representation.  
+Let's look at the implementation:
+```java 
+public int compare(byte[] bytes_1, int start_1, int length_1, byte[] bytes_2, int start_2, int length_2)
+```
 - - - - 
 
 ### Bad input record handling ###
