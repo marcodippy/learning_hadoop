@@ -40,10 +40,10 @@ Each object to be compared is identified with:
 Implementing a RawComparator is a little bit tricky and requires a bit of attention: the Text object is serialized prepending to the actual content a VIntWritable containing the size of the content; this VIntWritable has a (serialized) size that can vary from 1 to 5 bytes, and the actual size is stored in the leading byte of the array.
 So, considering that our custom type contains two Text object, a possible byte representation can be:  
 
-First Header  | Second Header  
-------------- | -------------  
-Content Cell  | Content Cell  
-Content Cell  | Content Cell  
+vInt length (1st obj) | vInt (1st obj) | text (1st obj) | vInt length (2nd obj) | vInt (2nd obj) | text (2nd obj) 
+------------- | ------------- |------------- | ------------- |------------- | ------------- |------------- | -------------  
+XXX  | YYY  | ZZZ  | ...  | ...  | ...  
+  
  
 
 
