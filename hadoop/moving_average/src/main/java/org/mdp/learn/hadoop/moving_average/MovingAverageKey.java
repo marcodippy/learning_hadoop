@@ -18,7 +18,7 @@ public class MovingAverageKey implements WritableComparable<MovingAverageKey> {
     this.timestamp = new LongWritable();
   }
 
-  public MovingAverageKey(String departureAirport, String arrivalAirport, Long timestamp) {
+  public MovingAverageKey(String departureAirport, String arrivalAirport, long timestamp) {
     this.departureAirport = new Text(departureAirport);
     this.arrivalAirport = new Text(arrivalAirport);
     this.timestamp = new LongWritable(timestamp);
@@ -82,6 +82,11 @@ public class MovingAverageKey implements WritableComparable<MovingAverageKey> {
     }
 
     return false;
+  }
+
+  @Override
+  public String toString() {
+    return "MovingAverageKey [departureAirport=" + departureAirport + ", arrivalAirport=" + arrivalAirport + ", timestamp=" + timestamp + "]";
   }
 
 }
