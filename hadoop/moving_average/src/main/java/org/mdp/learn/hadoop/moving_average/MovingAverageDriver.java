@@ -54,6 +54,7 @@ public class MovingAverageDriver extends Configured implements Tool {
     job.getConfiguration().set("timestamp_index", "3");
     job.getConfiguration().set("price_index", "5");
 
+    job.setNumReduceTasks(3);
     return job;
   }
 
@@ -82,6 +83,8 @@ public class MovingAverageDriver extends Configured implements Tool {
     job.getConfiguration().set("timestamp_index", "2");
     job.getConfiguration().set("price_index", "3");
 
+    job.setNumReduceTasks(3);
+    
     return job;
   }
 
