@@ -17,16 +17,16 @@ public class MovingAverageDriver extends Configured implements Tool {
 
   public int run(String[] args) throws Exception {
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
+    HdfsUtils.deleteIfExists(getConf(), new Path(TEMP_OUTPUT_FILE_PATH));
 
     Job averagePerDayJob = getAveragePerDayJob(args);
 
     boolean isJobSuccessful = averagePerDayJob.waitForCompletion(true);
-    if (!isJobSuccessful) return 1;
 
-    Job movingAverageJob = getMovingAverageJob(args);
-    isJobSuccessful = movingAverageJob.waitForCompletion(true);
-
-    HdfsUtils.deleteIfExists(getConf(), new Path(TEMP_OUTPUT_FILE_PATH));
+    if (isJobSuccessful) {
+      Job movingAverageJob = getMovingAverageJob(args);
+      isJobSuccessful = movingAverageJob.waitForCompletion(true);
+    }
 
     return isJobSuccessful ? 0 : 1;
   }
@@ -41,13 +41,19 @@ public class MovingAverageDriver extends Configured implements Tool {
     job.setMapperClass(MovingAverageMapper.class);
     job.setPartitionerClass(AveragePerDayKeyPartitioner.class);
     job.setSortComparatorClass(MovingAverageKeyComparator.class);
-    job.setGroupingComparatorClass(MovingAverageKeyGroupingComparator.class);
+    job.setGroupingComparatorClass(MovingAverageKeyComparator.class);
     job.setReducerClass(AveragePerDayReducer.class);
 
     job.setMapOutputKeyClass(MovingAverageKey.class);
     job.setMapOutputValueClass(TimeSeriesData.class);
 
     job.getConfiguration().set("mapreduce.output.textoutputformat.separator", ";");
+
+    job.getConfiguration().set("departureAirport_index", "1");
+    job.getConfiguration().set("arrivalAirport_index", "2");
+    job.getConfiguration().set("timestamp_index", "3");
+    job.getConfiguration().set("price_index", "5");
+
     return job;
   }
 
@@ -68,6 +74,13 @@ public class MovingAverageDriver extends Configured implements Tool {
     job.setMapOutputValueClass(TimeSeriesData.class);
 
     job.getConfiguration().set("mapreduce.output.textoutputformat.separator", ";");
+    
+    job.getConfiguration().set("WindowSize", "3");
+
+    job.getConfiguration().set("departureAirport_index", "0");
+    job.getConfiguration().set("arrivalAirport_index", "1");
+    job.getConfiguration().set("timestamp_index", "2");
+    job.getConfiguration().set("price_index", "3");
 
     return job;
   }

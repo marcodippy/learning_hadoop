@@ -13,7 +13,7 @@ public class MovingAverageReducer extends Reducer<MovingAverageKey, TimeSeriesDa
 
   @Override
   protected void setup(Context context) throws IOException, InterruptedException {
-    int windowSize = Integer.parseInt(context.getConfiguration().get("WindowSize", "4"));
+    int windowSize = Integer.parseInt(context.getConfiguration().get("WindowSize", "3"));
     movingAverage = new MovingAverage(windowSize);
   }
 

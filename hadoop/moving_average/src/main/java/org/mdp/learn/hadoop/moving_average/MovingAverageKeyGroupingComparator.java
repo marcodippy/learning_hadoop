@@ -6,7 +6,7 @@ import org.apache.hadoop.io.WritableComparator;
 public class MovingAverageKeyGroupingComparator extends WritableComparator {
 
   protected MovingAverageKeyGroupingComparator() {
-    super(MovingAverageKey.class);
+    super(MovingAverageKey.class, true);
   }
 
   @SuppressWarnings("rawtypes")

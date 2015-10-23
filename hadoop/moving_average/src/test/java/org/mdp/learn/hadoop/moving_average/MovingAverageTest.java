@@ -24,6 +24,11 @@ public class MovingAverageTest {
     MovingAverageMapper mapper = new MovingAverageMapper();
     mapDriver = MapDriver.newMapDriver(mapper);
 
+    mapDriver.getConfiguration().set("departureAirport_index", "0");
+    mapDriver.getConfiguration().set("arrivalAirport_index", "1");
+    mapDriver.getConfiguration().set("timestamp_index", "2");
+    mapDriver.getConfiguration().set("price_index", "3");
+
     MovingAverageReducer reducer = new MovingAverageReducer();
     reducerDriver = ReduceDriver.newReduceDriver(reducer);
     reducerDriver.getConfiguration().set("WindowSize", "3");
@@ -34,6 +39,10 @@ public class MovingAverageTest {
     mapRedDriver.setKeyGroupingComparator(new MovingAverageKeyGroupingComparator());
     mapRedDriver.getConfiguration().set("WindowSize", "3");
 
+    mapRedDriver.getConfiguration().set("departureAirport_index", "0");
+    mapRedDriver.getConfiguration().set("arrivalAirport_index", "1");
+    mapRedDriver.getConfiguration().set("timestamp_index", "2");
+    mapRedDriver.getConfiguration().set("price_index", "3");
   }
 
   @Test
