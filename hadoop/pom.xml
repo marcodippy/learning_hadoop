@@ -15,6 +15,7 @@
 		<module>average_grade</module>
     <module>average_grade_revisited</module>
     <module>moving_average</module>
+    <module>top_n_records</module>
   </modules>
 
 	<properties>
