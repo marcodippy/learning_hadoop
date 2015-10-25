@@ -15,11 +15,6 @@ public class CourseAndStudentWritable implements WritableComparable<CourseAndStu
     this.student = new Text();
   }
 
-  public CourseAndStudentWritable(Text course, Text student) {
-    this.course = course;
-    this.student = student;
-  }
-
   public CourseAndStudentWritable(String course, String student) {
     this.course = new Text(course);
     this.student = new Text(student);
