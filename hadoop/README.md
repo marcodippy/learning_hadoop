@@ -4,4 +4,5 @@ This is a collection of projects I've created to learn Hadoop with some notes.
 1. [Word Count](./word_count): the "Hello Word" of Hadoopers {basic Mapper and Reducer, Combiner}
 2. [Average Grade](./average_grade): {Secondary Sort, custom types and comparator}
 3. [Average Grade 2 - The Revenge](./average_grade_revisited): {Raw Comparator, In-memory Combiner, Counters}
-3. [Moving Average](./moving_average): {Moving Average, Secondary Sort, Job Chaining}
+4. [Moving Average](./moving_average): {Moving Average, Secondary Sort, Job Chaining}
+5. [The N most sold flights](./top_n_records): {Top N values}
