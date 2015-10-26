@@ -6,3 +6,4 @@ This is a collection of projects I've created to learn Hadoop with some notes.
 3. [Average Grade 2 - The Revenge](./average_grade_revisited): {Raw Comparator, In-memory Combiner, Counters}
 4. [Moving Average](./moving_average): {Moving Average, Secondary Sort, Job Chaining}
 5. [The N most sold flights](./top_n_records): {Top N values}
+6. [Co-Occurrence matrix](./co_occurrence_matrix): {Co-Occurrence Matrix, Pair and Stripes}
