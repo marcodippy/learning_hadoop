@@ -25,6 +25,8 @@ public class MovingAverageReducer extends Reducer<MovingAverageKey, TimeSeriesDa
 
       context.write(formatKey(flight), getValue(data));
     }
+    
+    movingAverage.clean();
   }
 
   private Text getValue(TimeSeriesData data) {
