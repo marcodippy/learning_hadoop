@@ -15,7 +15,7 @@ Since the input file contains multiple prices for each flight/day (prices are pe
 One way to implement a job chain is to use the JobControl class (the workflow "orchestrator") and ControlledJob (a wrapper/monitor for the single job)
 
   
-#### The algorithm ####
+### The algorithm ###
 The core of the algorithm consists in making all the prices for a flight arriving to the reducer ordered by day and calculating the average of the values appearing in the specified time window.  
   
   
