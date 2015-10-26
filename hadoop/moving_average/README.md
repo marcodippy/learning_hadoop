@@ -20,11 +20,11 @@ The core of the algorithm consists in making all the prices for a flight arrivin
   
   
 The first part is implemented with the classic Secondary Sort technique:
-* [MovingAverageKeyComparator](./moving_average/src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyComparator.java) orders the keys by flights and day
-* [MovingAverageKeyGroupingComparator](./moving_average/src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyGroupingComparator.java) keeps in consideration only the flight for grouping all the prices/day under the same key
-* [MovingAverageKeyPartitioner](./moving_average/src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyPartitioner.java) partitions the keys by flight (we want be sure that all the data relative to a flight are processed by the same reducer)
+* [MovingAverageKeyComparator](./src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyComparator.java) orders the keys by flights and day
+* [MovingAverageKeyGroupingComparator](./src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyGroupingComparator.java) keeps in consideration only the flight for grouping all the prices/day under the same key
+* [MovingAverageKeyPartitioner](./src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverageKeyPartitioner.java) partitions the keys by flight (we want be sure that all the data relative to a flight are processed by the same reducer)
 
 
-The calculation of the moving average is done in the [MovingAverage](./moving_average/src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverage.java) class; using a FIFO queue to hold the N most recent prices (N is the size of the window), it can easily calculate the average price each time that a new value arrives.  
+The calculation of the moving average is done in the [MovingAverage](./src/main/java/org/mdp/learn/hadoop/moving_average/MovingAverage.java) class; using a FIFO queue to hold the N most recent prices (N is the size of the window), it can easily calculate the average price each time that a new value arrives.  
 
 - - - - 
