@@ -26,8 +26,4 @@ public class MovingAverage {
     return sum / window.size();
   }
 
-  public void clean() {
-    window.clear();
-    sum = 0.0;
-  }
 }
