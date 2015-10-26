@@ -2,6 +2,7 @@ package org.mdp.learn.hadoop.top_n_records;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,8 @@ public class TopNTest {
   private MapDriver<LongWritable, Text, NullWritable, Booking> mapDriver;
   private ReduceDriver<NullWritable, Booking, Text, IntWritable> reducerDriver;
   private MapReduceDriver<LongWritable, Text, NullWritable, Booking, Text, IntWritable> mapRedDriver;
-
+  private Path inputFile;
+  
   @Before
   public void setUp() throws Exception {
     TopNMapper mapper = new TopNMapper();
@@ -33,12 +35,14 @@ public class TopNTest {
     reducerDriver = ReduceDriver.newReduceDriver(reducer);
 
     mapRedDriver = MapReduceDriver.newMapReduceDriver(mapper, reducer);
+    
+    inputFile = Paths.get(getClass().getResource("/input_top_n_records").toURI());
   }
 
   @Test
   public void testMapper() throws IOException, URISyntaxException {
     mapDriver.getConfiguration().set("top.n", "4");
-    mapDriver.addAll(TestUtils.getInput(Paths.get(getClass().getResource("input_top_n_records").toURI())));
+    mapDriver.addAll(TestUtils.getInput(inputFile));
     
     mapDriver.addAllOutput(
         Arrays.asList(
@@ -56,7 +60,7 @@ public class TopNTest {
   public void testReducer() throws IOException, URISyntaxException {
     reducerDriver.getConfiguration().set("top.n", "4");
     
-    List<Pair<LongWritable, Text>> mapInputs = TestUtils.getInput(Paths.get(getClass().getResource("input_top_n_records").toURI()));
+    List<Pair<LongWritable, Text>> mapInputs = TestUtils.getInput(inputFile);
    
     List<Booking> redInputs = mapInputs.stream()
       .map(pair -> pair.getSecond().toString())
@@ -81,7 +85,7 @@ public class TopNTest {
   @Test
   public void testMapReduce() throws IOException, URISyntaxException {
     mapRedDriver.getConfiguration().set("top.n", "4");
-    mapRedDriver.addAll(TestUtils.getInput(Paths.get(getClass().getResource("input_top_n_records").toURI())));
+    mapRedDriver.addAll(TestUtils.getInput(inputFile));
 
     mapRedDriver.addAllOutput(
         Arrays.asList(
