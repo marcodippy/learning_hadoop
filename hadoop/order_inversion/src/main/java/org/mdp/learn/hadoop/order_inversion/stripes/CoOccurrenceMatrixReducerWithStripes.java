@@ -25,7 +25,7 @@ public class CoOccurrenceMatrixReducerWithStripes extends Reducer<Text, MapWrita
   }
 
   private MapWritable getFrequencyMap(MapWritable map, int marginal) {
-    MapWritable frequencies = new MapWritable();
+    MapWritable frequencies = new PrintableMapWritable();
     map.forEach((neighbor, cnt) -> frequencies.put(neighbor, new DoubleWritable(((IntWritable) cnt).get() / (double) marginal)));
     return frequencies;
   }
