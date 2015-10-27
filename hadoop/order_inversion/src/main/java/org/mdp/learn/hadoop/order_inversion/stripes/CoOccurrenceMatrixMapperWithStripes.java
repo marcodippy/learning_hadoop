@@ -9,9 +9,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class CoOccurrenceMatrixMapperWithStripes extends Mapper<LongWritable, Text, Text, MapWritable> {
-  private final Text        word       = new Text();
-  private final IntWritable ZERO       = new IntWritable(0);
-  private int               neighbours = 2;
+  private final Text        word = new Text();
+  private final IntWritable ZERO = new IntWritable(0);
+  private int               NEIGHBOURS;
+
+  @Override
+  protected void setup(Context context) throws IOException, InterruptedException {
+    NEIGHBOURS = Integer.parseInt(context.getConfiguration().get("neighbours", "2"));
+  }
 
   @Override
   protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -20,7 +25,7 @@ public class CoOccurrenceMatrixMapperWithStripes extends Mapper<LongWritable, Te
     for (int i = 0; i < words.length; i++) {
       MapWritable map = new MapWritable();
 
-      for (int k = i - neighbours; k <= i + neighbours; k++) {
+      for (int k = i - NEIGHBOURS; k <= i + NEIGHBOURS; k++) {
         if (k == i || k < 0 || k > words.length - 1) continue;
         incrementCount(map, new Text(words[k]));
       }
@@ -32,7 +37,6 @@ public class CoOccurrenceMatrixMapperWithStripes extends Mapper<LongWritable, Te
 
   private void incrementCount(MapWritable map, Text key) {
     IntWritable count = (IntWritable) map.getOrDefault(key, ZERO);
-    count.set(count.get() + 1);
-    map.put(key, count);
+    map.put(key, new IntWritable(count.get() + 1));
   }
 }
