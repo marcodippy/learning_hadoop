@@ -16,11 +16,18 @@ public class CoOccurrenceMatrixMapperWithPairs extends Mapper<LongWritable, Text
   @Override
   protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
     String[] words = value.toString().replaceAll("--", "").toLowerCase().split("[\\s,;.:?!]+");
+    int cnt = 0;
 
-    for (int i = 0; i < words.length; i++)
+    for (int i = 0; i < words.length; i++) {
+      String word = words[i];
+
       for (int k = i - neighbours; k < i + neighbours; i++) {
         if (k == i || k < 0 || k > words.length - 1) continue;
-        context.write(pair.set(words[i], words[k]), ONE);
+        context.write(pair.set(word, words[k]), ONE);
+        cnt++;
       }
+
+      context.write(pair.set(word, "*"), new IntWritable(cnt));
+    }
   }
 }
