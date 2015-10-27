@@ -1,11 +1,10 @@
 # Exercise #
 Given a fine containing some text, build the co-occurrence matrix.
 
-    The co-occurrence matrix of a corpus is a square NxN matrix where N is the  
-    number of unique words in the corpus. A cell m(i,j) contains the number of  
-    times word w(i) co-occurs with word w(j) within a specific context  
-    (a natural unit such as a sentence, paragraph, or a document, or a certain  
-    window of K words)
+    The co-occurrence matrix of a corpus is a square NxN matrix where N is the number of unique words  
+    in the corpus. A cell m(i,j) contains the number of times word w(i) co-occurs with word w(j)  
+    within a specific context (a natural unit such as a sentence, paragraph, or a document,  
+    or a certain window of K words)
 
 - - - -
 - - - -
