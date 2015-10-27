@@ -13,4 +13,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.mrunit</groupId>
+			<artifactId>mrunit</artifactId>
+			<scope>compile</scope>
+			<classifier>hadoop2</classifier>
+		</dependency>
+	</dependencies>
 </project>
