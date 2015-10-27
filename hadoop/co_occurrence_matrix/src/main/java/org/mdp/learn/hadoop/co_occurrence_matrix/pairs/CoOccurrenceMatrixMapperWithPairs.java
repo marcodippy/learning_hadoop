@@ -18,7 +18,7 @@ public class CoOccurrenceMatrixMapperWithPairs extends Mapper<LongWritable, Text
     String[] words = value.toString().replaceAll("--", "").toLowerCase().split("[\\s,;.:?!]+");
 
     for (int i = 0; i < words.length; i++)
-      for (int k = i - neighbours; k < i + neighbours; i++) {
+      for (int k = i - neighbours; k <= i + neighbours; k++) {
         if (k == i || k < 0 || k > words.length - 1) continue;
         context.write(pair.set(words[i], words[k]), ONE);
       }
