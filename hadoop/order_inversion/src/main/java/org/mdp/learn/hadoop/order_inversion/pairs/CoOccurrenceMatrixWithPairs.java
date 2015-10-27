@@ -15,6 +15,8 @@ public class CoOccurrenceMatrixWithPairs extends Configured implements Tool {
     Job job = JobBuilder.parseInputAndOutput(this, getConf(), args);
 
     job.setMapperClass(CoOccurrenceMatrixMapperWithPairs.class);
+    job.setSortComparatorClass(KeyComparator.class);
+    job.setPartitionerClass(KeyPartitioner.class);
     job.setReducerClass(CoOccurrenceMatrixReducerWithPairs.class);
 
     job.setOutputKeyClass(TextPair.class);
