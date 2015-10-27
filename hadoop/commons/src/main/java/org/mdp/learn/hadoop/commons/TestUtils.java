@@ -1,4 +1,4 @@
-package org.mdp.learn.hadoop.top_n_records;
+package org.mdp.learn.hadoop.commons;
 
 import java.io.IOException;
 import java.nio.file.Files;

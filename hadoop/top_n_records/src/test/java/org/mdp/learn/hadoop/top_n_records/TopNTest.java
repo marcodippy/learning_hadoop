@@ -18,6 +18,7 @@ import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
+import org.mdp.learn.hadoop.commons.TestUtils;
 
 public class TopNTest {
 
