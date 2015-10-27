@@ -22,7 +22,6 @@ public class CoOccurrenceMatrixReducerWithStripes extends Reducer<Text, MapWrita
 
   private void updateCount(MapWritable map, Text key, IntWritable cnt) {
     IntWritable count = (IntWritable) map.getOrDefault(key, ZERO);
-    count.set(count.get() + cnt.get());
-    map.put(key, count);
+    map.put(key, new IntWritable(count.get() + cnt.get()));
   }
 }
