@@ -87,3 +87,8 @@ and the reducer:
 	(d, {a:3, c:3})
 
 In contrast to the pairs approach, each final key-value pair represents a **row** in the co-occurrence matrix.
+
+- - - -
+
+Both algorithms can benefit from the use of (in-memory) combiners
+
