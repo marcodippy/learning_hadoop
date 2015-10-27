@@ -21,7 +21,7 @@ public class CoOccurrenceMatrixMapperWithPairs extends Mapper<LongWritable, Text
     for (int i = 0; i < words.length; i++) {
       String word = words[i];
 
-      for (int k = i - neighbours; k < i + neighbours; i++) {
+      for (int k = i - neighbours; k < i + neighbours; k++) {
         if (k == i || k < 0 || k > words.length - 1) continue;
         context.write(pair.set(word, words[k]), ONE);
         cnt++;
