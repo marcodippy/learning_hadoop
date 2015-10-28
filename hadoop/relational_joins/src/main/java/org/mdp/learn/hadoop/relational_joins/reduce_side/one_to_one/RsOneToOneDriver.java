@@ -27,6 +27,8 @@ public class RsOneToOneDriver extends Configured implements Tool {
 
     job.getConfiguration().set("fieldSeparator", ";");
 
+    int fileNumber = 0;
+    
     for (int i = 0; i < args.length - 2; i += 2) {
       String[] parts = args[i].split("/");
       String fileName = parts[parts.length - 1];
@@ -34,8 +36,11 @@ public class RsOneToOneDriver extends Configured implements Tool {
       job.getConfiguration().set(fileName + ".joinOrder", Integer.toString(i));
       job.getConfiguration().set(fileName + ".joinKeyIndex", args[i + 1]);
       FileInputFormat.addInputPaths(job, args[i]);
+      fileNumber++;      
     }
 
+    job.getConfiguration().set("tableNumber", Integer.toString(fileNumber));
+    
     FileOutputFormat.setOutputPath(job, new Path(args[args.length - 1]));
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[args.length - 1]));
