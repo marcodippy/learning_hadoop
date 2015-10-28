@@ -2,6 +2,7 @@ package org.mdp.learn.hadoop.order_inversion.pairs;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
@@ -19,8 +20,10 @@ public class CoOccurrenceMatrixWithPairs extends Configured implements Tool {
     job.setPartitionerClass(KeyPartitioner.class);
     job.setReducerClass(CoOccurrenceMatrixReducerWithPairs.class);
 
+    job.setMapOutputKeyClass(TextPair.class);
+    job.setMapOutputValueClass(IntWritable.class);
     job.setOutputKeyClass(TextPair.class);
-    job.setOutputValueClass(IntWritable.class);
+    job.setOutputValueClass(DoubleWritable.class);
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
 
