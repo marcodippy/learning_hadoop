@@ -38,7 +38,6 @@ public class RsOneToOneTest {
 
     mapRedDriver = MapReduceDriver.newMapReduceDriver(mapper, reducer);
 
-    mapRedDriver.setKeyOrderComparator(new JoinKeyComparator());
     mapRedDriver.setKeyGroupingComparator(new JoinKeyGroupingComparator());
   }
 
