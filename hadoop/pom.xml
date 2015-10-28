@@ -18,6 +18,7 @@
 		<module>top_n_records</module>
     <module>co_occurrence_matrix</module>
     <module>order_inversion</module>
+    <module>relational_joins</module>
   </modules>
 
 	<properties>
