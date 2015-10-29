@@ -15,7 +15,7 @@ public class MsMapper extends Mapper<Text, TupleWritable, NullWritable, Text> {
 
   @Override
   protected void setup(Context context) throws IOException, InterruptedException {
-    SEPARATOR = context.getConfiguration().get("mapreduce.input.keyvaluelinerecordreader.key.value.separator");
+    SEPARATOR = context.getConfiguration().get("separator");
   }
 
   @Override
