@@ -26,6 +26,11 @@ public class JoinKey implements WritableComparable<JoinKey> {
     this.originTable = new IntWritable(originTable);
   }
 
+  public void set(JoinKey otherKey) {
+    this.value = new Text(otherKey.value);
+    this.originTable = new IntWritable(otherKey.originTable.get());
+  }
+  
   public Text getValue() {
     return value;
   }

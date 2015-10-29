@@ -1,4 +1,4 @@
-package org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_one;
+package org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_many;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -10,15 +10,17 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.mdp.learn.hadoop.commons.HdfsUtils;
+import org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_one.JoinKey;
+import org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_one.JoinKeyPartitioner;
+import org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_one.RsOneToOneMapper;
 
-public class RsOneToOneDriver extends Configured implements Tool {
+public class RsOneToManyDriver extends Configured implements Tool {
   public int run(String[] args) throws Exception {
     Job job = Job.getInstance(getConf(), "Reduce Side Join - one to one");
 
     job.setMapperClass(RsOneToOneMapper.class);
-    job.setGroupingComparatorClass(JoinKeyGroupingComparator.class);
     job.setPartitionerClass(JoinKeyPartitioner.class);
-    job.setReducerClass(RsOneToOneReducer.class);
+    job.setReducerClass(RsOneToManyReducer.class);
 
     job.setMapOutputKeyClass(JoinKey.class);
     job.setMapOutputValueClass(Text.class);
@@ -28,19 +30,17 @@ public class RsOneToOneDriver extends Configured implements Tool {
     job.getConfiguration().set("fieldSeparator", ";");
 
     int fileNumber = 0;
-    
+
     for (int i = 0; i < args.length - 2; i += 2) {
       String[] parts = args[i].split("/");
       String fileName = parts[parts.length - 1];
-      fileNumber++;      
+      fileNumber++;
 
       job.getConfiguration().set(fileName + ".joinOrder", Integer.toString(fileNumber));
       job.getConfiguration().set(fileName + ".joinKeyIndex", args[i + 1]);
       FileInputFormat.addInputPaths(job, args[i]);
     }
 
-    job.getConfiguration().set("tableNumber", Integer.toString(fileNumber));
-    
     FileOutputFormat.setOutputPath(job, new Path(args[args.length - 1]));
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[args.length - 1]));
@@ -49,6 +49,6 @@ public class RsOneToOneDriver extends Configured implements Tool {
   }
 
   public static void main(String[] args) throws Exception {
-    System.exit(ToolRunner.run(new RsOneToOneDriver(), args));
+    System.exit(ToolRunner.run(new RsOneToManyDriver(), args));
   }
 }
