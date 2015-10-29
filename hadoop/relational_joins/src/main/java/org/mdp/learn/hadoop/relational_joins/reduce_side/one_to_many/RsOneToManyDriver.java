@@ -16,7 +16,7 @@ import org.mdp.learn.hadoop.relational_joins.reduce_side.one_to_one.RsOneToOneMa
 
 public class RsOneToManyDriver extends Configured implements Tool {
   public int run(String[] args) throws Exception {
-    Job job = Job.getInstance(getConf(), "Reduce Side Join - one to one");
+    Job job = Job.getInstance(getConf(), "Reduce Side Join - one to many");
 
     job.setMapperClass(RsOneToOneMapper.class);
     job.setPartitionerClass(JoinKeyPartitioner.class);
