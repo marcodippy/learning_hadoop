@@ -19,6 +19,7 @@
     <module>co_occurrence_matrix</module>
     <module>order_inversion</module>
     <module>relational_joins</module>
+    <module>inverted_index</module>
   </modules>
 
 	<properties>
