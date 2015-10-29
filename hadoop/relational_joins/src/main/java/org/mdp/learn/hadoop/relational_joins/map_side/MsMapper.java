@@ -21,7 +21,6 @@ public class MsMapper extends Mapper<Text, TupleWritable, NullWritable, Text> {
   @Override
   protected void map(Text key, TupleWritable value, Context context) throws IOException, InterruptedException {
     String text = key.toString() + SEPARATOR;
-
     Iterator<Writable> iterator = value.iterator();
     while (iterator.hasNext()) {
       text += iterator.next().toString();
@@ -29,7 +28,6 @@ public class MsMapper extends Mapper<Text, TupleWritable, NullWritable, Text> {
     }
 
     joinedRow.set(text);
-
     context.write(NullWritable.get(), joinedRow);
   }
 
