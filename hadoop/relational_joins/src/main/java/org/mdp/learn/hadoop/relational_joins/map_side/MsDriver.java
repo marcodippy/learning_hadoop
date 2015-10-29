@@ -27,15 +27,15 @@ public class MsDriver extends Configured implements Tool {
     job.getConfiguration().set("mapreduce.input.keyvaluelinerecordreader.key.value.separator", SEPARATOR);
     String joinExpression = CompositeInputFormat.compose("inner", KeyValueTextInputFormat.class, tableLeft, tableRight);
     job.getConfiguration().set("mapred.join.expr", joinExpression);
-    job.getConfiguration().set("separator", SEPARATOR);//serve?
+    job.getConfiguration().set("separator", SEPARATOR);
 
     job.setMapperClass(MsMapper.class);
-    job.setReducerClass(Reducer.class); //serve?
+    job.setReducerClass(Reducer.class);
     job.setNumReduceTasks(0);
 
     job.setMapOutputKeyClass(Text.class);
     job.setInputFormatClass(CompositeInputFormat.class);
-    
+
     FileInputFormat.addInputPaths(job, tableLeft + "," + tableRight);
     FileOutputFormat.setOutputPath(job, new Path(outputFile));
 
