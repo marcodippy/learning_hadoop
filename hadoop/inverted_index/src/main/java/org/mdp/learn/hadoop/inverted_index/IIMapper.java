@@ -8,18 +8,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import org.mdp.learn.hadoop.commons.TextPair;
 
-public class IIMapper extends Mapper<LongWritable, Text, TextPair, IntWritable> {
-  private Map<String, Integer> map   = new HashMap<>();
-  private TextPair             tuple = new TextPair();
-  private IntWritable          count;
+public class IIMapper extends Mapper<LongWritable, Text, TermInfo, Posting> {
+  private Map<String, Integer> map      = new HashMap<>();
+  private TermInfo             termInfo = new TermInfo();
+  private Posting              posting  = new Posting();
   private String               fileName;
 
   @Override
@@ -39,12 +36,14 @@ public class IIMapper extends Mapper<LongWritable, Text, TextPair, IntWritable> 
   @Override
   protected void cleanup(Context context) throws IOException, InterruptedException {
     Set<Entry<String, Integer>> entries = map.entrySet();
+
     for (Entry<String, Integer> entry : entries) {
-      tuple.set(entry.getKey(), fileName);
-      count.set(entry.getValue());
-      context.write(tuple, count);
+      termInfo.set(entry.getKey(), fileName);
+      posting.set(fileName, entry.getValue().toString());
+      context.write(termInfo, posting);
     }
-    // clean resources
+
+    map.clear();
   }
 
 }
