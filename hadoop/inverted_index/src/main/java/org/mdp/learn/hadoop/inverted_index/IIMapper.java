@@ -17,11 +17,11 @@ public class IIMapper extends Mapper<LongWritable, Text, TermInfo, Posting> {
   private Map<String, Integer> map      = new HashMap<>();
   private TermInfo             termInfo = new TermInfo();
   private Posting              posting  = new Posting();
-  private String               fileName;
+  private int                  fileName;
 
   @Override
   protected void setup(Context context) throws IOException, InterruptedException {
-    fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
+    fileName = Integer.parseInt(((FileSplit) context.getInputSplit()).getPath().getName());
   }
 
   @Override

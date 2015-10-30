@@ -5,34 +5,36 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.VIntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
 public class TermInfo implements WritableComparable<TermInfo> {
-  private Text term, documentId;
+  private Text         term;
+  private VIntWritable documentId;
 
   public TermInfo() {
     term = new Text();
-    documentId = new Text();
+    documentId = new VIntWritable();
   }
 
-  public TermInfo(String term, String documentId) {
+  public TermInfo(String term, int documentId) {
     set(term, documentId);
   }
 
   public void set(TermInfo termInfo) {
-    set(termInfo.term.toString(), termInfo.documentId.toString());
+    set(termInfo.term.toString(), termInfo.documentId.get());
   }
 
-  public void set(String term, String documentId) {
+  public void set(String term, int documentId) {
     this.term = new Text(term);
-    this.documentId = new Text(documentId);
+    this.documentId = new VIntWritable(documentId);
   }
 
   public Text getTerm() {
     return term;
   }
 
-  public Text getDocumentId() {
+  public VIntWritable getDocumentId() {
     return documentId;
   }
 

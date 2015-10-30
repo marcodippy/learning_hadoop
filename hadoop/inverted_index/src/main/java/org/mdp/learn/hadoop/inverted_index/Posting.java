@@ -5,14 +5,15 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.VIntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
 public class Posting implements WritableComparable<Posting> {
-  private Text documentId;
-  private Text payload;
+  private VIntWritable documentId;
+  private Text         payload;
 
   public Posting() {
-    documentId = new Text();
+    documentId = new VIntWritable();
     payload = new Text();
   }
 
@@ -20,17 +21,25 @@ public class Posting implements WritableComparable<Posting> {
     set(p);
   }
 
-  public Posting(String documentId, String payload) {
+  public Posting(int documentId, String payload) {
     set(documentId, payload);
   }
 
-  public void set(String documentId, String payload) {
-    this.documentId = new Text(documentId);
+  public void set(int documentId, String payload) {
+    this.documentId = new VIntWritable(documentId);
     this.payload = new Text(payload);
   }
 
   public void set(Posting posting) {
-    set(posting.documentId.toString(), posting.payload.toString());
+    set(posting.documentId.get(), posting.payload.toString());
+  }
+
+  public VIntWritable getDocumentId() {
+    return documentId;
+  }
+
+  public Text getPayload() {
+    return payload;
   }
 
   @Override

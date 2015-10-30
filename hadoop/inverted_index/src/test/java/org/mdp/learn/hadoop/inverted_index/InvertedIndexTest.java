@@ -32,7 +32,7 @@ public class InvertedIndexTest {
 
   @Test
   public void testMap() throws IOException {
-    mapDriver.setMapInputPath(new Path("doc1"));
+    mapDriver.setMapInputPath(new Path("1"));
 
     mapDriver.withInput(new LongWritable(0), new Text("marco fabio luca"));
     mapDriver.withInput(new LongWritable(1), new Text("marco fabio luca"));
@@ -42,12 +42,12 @@ public class InvertedIndexTest {
     mapDriver.withInput(new LongWritable(3), new Text("marco murray gordon"));
     mapDriver.withInput(new LongWritable(4), new Text("marco murray richard"));
 
-    mapDriver.withOutput(new TermInfo("marco", "doc1"), new Posting("doc1", "7"));
-    mapDriver.withOutput(new TermInfo("fabio", "doc1"), new Posting("doc1", "3"));
-    mapDriver.withOutput(new TermInfo("murray", "doc1"), new Posting("doc1", "4"));
-    mapDriver.withOutput(new TermInfo("luca", "doc1"), new Posting("doc1", "4"));
-    mapDriver.withOutput(new TermInfo("gordon", "doc1"), new Posting("doc1", "2"));
-    mapDriver.withOutput(new TermInfo("richard", "doc1"), new Posting("doc1", "1"));
+    mapDriver.withOutput(new TermInfo("marco", 1), new Posting(1, "7"));
+    mapDriver.withOutput(new TermInfo("fabio", 1), new Posting(1, "3"));
+    mapDriver.withOutput(new TermInfo("murray", 1), new Posting(1, "4"));
+    mapDriver.withOutput(new TermInfo("luca", 1), new Posting(1, "4"));
+    mapDriver.withOutput(new TermInfo("gordon", 1), new Posting(1, "2"));
+    mapDriver.withOutput(new TermInfo("richard", 1), new Posting(1, "1"));
 
     mapDriver.runTest(false);
   }
@@ -55,20 +55,20 @@ public class InvertedIndexTest {
   @Test
   public void testReduce() throws IOException {
 
-    reducerDriver.withInput(new TermInfo("marco", "doc1"), Arrays.asList(new Posting("doc1", "7"), new Posting("doc2", "5")));
-    reducerDriver.withInput(new TermInfo("fabio", "doc1"), Arrays.asList(new Posting("doc1", "3"), new Posting("doc2", "4")));
-    reducerDriver.withInput(new TermInfo("murray", "doc1"), Arrays.asList(new Posting("doc1", "4"), new Posting("doc2", "9"), new Posting("doc3", "4")));
+    reducerDriver.withInput(new TermInfo("marco", 1), Arrays.asList(new Posting(1, "7"), new Posting(2, "5")));
+    reducerDriver.withInput(new TermInfo("fabio", 1), Arrays.asList(new Posting(1, "3"), new Posting(2, "4")));
+    reducerDriver.withInput(new TermInfo("murray", 1), Arrays.asList(new Posting(1, "4"), new Posting(4, "9"), new Posting(21, "4")));
 
-    reducerDriver.withOutput(new Text("marco"), new Postings(new Posting[]{new Posting("doc1", "7"), new Posting("doc2", "5")}));
-    reducerDriver.withOutput(new Text("fabio"), new Postings(new Posting[]{new Posting("doc1", "3"), new Posting("doc2", "4")}));
-    reducerDriver.withOutput(new Text("murray"), new Postings(new Posting[]{new Posting("doc1", "4"), new Posting("doc2", "9"), new Posting("doc3", "4")}));
-    
+    reducerDriver.withOutput(new Text("marco"), new Postings(new Posting[] { new Posting(1, "7"), new Posting(1, "5") }));
+    reducerDriver.withOutput(new Text("fabio"), new Postings(new Posting[] { new Posting(1, "3"), new Posting(1, "4") }));
+    reducerDriver.withOutput(new Text("murray"), new Postings(new Posting[] { new Posting(1, "4"), new Posting(3, "9"), new Posting(18, "4") }));
+
     reducerDriver.runTest();
   }
 
   @Test
   public void testMapReduce() throws IOException {
-    mapRedDriver.setMapInputPath(new Path("doc1"));
+    mapRedDriver.setMapInputPath(new Path("1"));
 
     mapRedDriver.withInput(new LongWritable(0), new Text("Marco fabio luca"));
     mapRedDriver.withInput(new LongWritable(1), new Text("Marco fabio luca"));
