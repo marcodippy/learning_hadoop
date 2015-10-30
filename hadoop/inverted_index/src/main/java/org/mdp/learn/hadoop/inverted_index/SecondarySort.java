@@ -13,6 +13,11 @@ public class SecondarySort {
   }
 
   public static class TermGroupingComparator extends WritableComparator {
+
+    protected TermGroupingComparator() {
+      super(TermInfo.class, true);
+    }
+
     @SuppressWarnings("rawtypes")
     @Override
     public int compare(WritableComparable a, WritableComparable b) {

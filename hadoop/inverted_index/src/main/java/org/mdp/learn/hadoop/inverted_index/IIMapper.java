@@ -30,7 +30,7 @@ public class IIMapper extends Mapper<LongWritable, Text, TermInfo, Posting> {
   }
 
   private List<String> extractTerms(Text value) {
-    return Arrays.asList(value.toString().split(" "));
+    return Arrays.asList(value.toString().toLowerCase().split("[\\s,;.:?!]+"));
   }
 
   @Override
