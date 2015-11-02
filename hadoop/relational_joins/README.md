@@ -37,5 +37,5 @@ All the magic here is done by hadoop *CompositeInputFormat* class specified in t
 - - - - 
 
 ### Memory backed join ###
-
+We can use this approach when one of the datasets is small enough to fit completely into memory on each node: every mapper will keep it into memory in an associative array (*hash join*) while processing the data of the other datasets. Again, there's no need for reducers.  
 - - - -  
