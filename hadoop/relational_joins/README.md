@@ -28,7 +28,11 @@ Now we can keep in memory the rows of the first table and join them with the cor
 
 - - - -
 
-### Map-side join ###
+### Map-side join aka *Merge join* ###
+This approach works when the datasets to be joined are already sorted by the same (join) key and have the same number of partitions.  
+It consists in scanning both datasets simultaneously (piece by piece) and merge each "partition" of the first table with the corresponding partition of the second one. No reducer is required (no data to be shuffled over the network), so this approach is far more efficient.  
+
+All the magic here is done by hadoop *CompositeInputFormat* class specified in the driver.
 
 - - - - 
 
