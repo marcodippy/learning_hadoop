@@ -17,7 +17,13 @@ public class BfsDriver extends Configured implements Tool {
 
     HdfsUtils.deleteIfExists(getConf(), new Path(args[1]));
 
-    return job.waitForCompletion(true) ? 0 : 1;
+    do {
+      if (!job.waitForCompletion(true)) {
+        return 1;
+      }
+    } while (job.getCounters().findCounter(BfsCounters.NOT_DISCOVERED_NODES).getValue() != 0);
+
+    return 0;
   }
 
   public static void main(String[] args) throws Exception {
