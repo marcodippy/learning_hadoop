@@ -20,15 +20,10 @@ public class MBMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
   @Override
   protected void setup(Context context) throws IOException, InterruptedException {
     SEPARATOR = context.getConfiguration().get("separator");
-    URI smallTableURI = context.getCacheFiles()[0];
-    smallTable = initSmallTableMap(smallTableURI);
-
-    // TODO testa quell-uri
+    smallTable = initSmallTableMap();
   }
 
-  private Map<String, String> initSmallTableMap(URI smallTableURI) throws IOException {
-    // FileUtils.readLines(new File("./cachedSmallFile")).forEach(line ->
-    // map.put(line.split(SEPARATOR)[0], line));
+  private Map<String, String> initSmallTableMap() throws IOException {
     return FileUtils.readLines(new File("./cachedSmallTable")).stream().collect(Collectors.toMap(line -> line.split(SEPARATOR)[0], line -> line));
   }
 
