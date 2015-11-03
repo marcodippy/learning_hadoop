@@ -22,23 +22,7 @@ public class DijkstraMapReduceTest {
     mapRedDriver = MapReduceDriver.newMapReduceDriver(new DijkstraMapper(), new DijkstraReducer());
     mapRedDriver.withCounters(new Counters());
   }
-
-  /*
-  ((null), HAV-[(MIA; 10)]-10-/MPX/HAV)
-  ((null), JFK-[(MIA; 60)]-190-/MPX/JFK)
-  ((null), MIA-[(JFK; 10)]-INF)
-  ((null), MPX-[(JFK; 190),(HAV; 10)]-0)
-  ******************
-  ((null), HAV-[(MIA; 10)]-10-/MPX/HAV)
-  ((null), JFK-[(MIA; 60)]-190-/MPX/JFK)
-  ((null), MIA-[(JFK; 10)]-20-/MPX/HAV/MIA)
-  ((null), MPX-[(JFK; 190),(HAV; 10)]-0)
-  ******************
-  ((null), HAV-[(MIA; 10)]-10-/MPX/HAV)
-  ((null), JFK-[(MIA; 60)]-30-/MPX/HAV/MIA/JFK)
-  ((null), MIA-[(JFK; 10)]-20-/MPX/HAV/MIA)
-  ((null), MPX-[(JFK; 190),(HAV; 10)]-0)
-  */
+ 
   
   @SuppressWarnings("unchecked")
   @Test
@@ -48,42 +32,28 @@ public class DijkstraMapReduceTest {
     mapRedDriver.withInput(new LongWritable(0), new Text("HAV-[(MIA; 10)]-INF"));
     mapRedDriver.withInput(new LongWritable(0), new Text("MIA-[(JFK; 10)]-INF"));
 
-    int cnt = 1;
+    int iterations = 0;
 
     List<Pair<NullWritable, Text>> ret = mapRedDriver.run();
     long changedNodes = mapRedDriver.getCounters().findCounter(DijkstraCounters.CHANGED_NODES).getValue();
-
-    ret.forEach(System.out::println);
-    System.out.println("******************");
-
-    cnt++;
+    iterations++;
     
     do {
       setUp();
       List<Pair<LongWritable, Text>> inputs = ret.stream().map(x -> new Pair<LongWritable, Text>(new LongWritable(0), x.getSecond())).collect(Collectors.toList());
       ret = mapRedDriver.withAll(inputs).run();
       changedNodes = mapRedDriver.getCounters().findCounter(DijkstraCounters.CHANGED_NODES).getValue();
-      
-      ret.forEach(System.out::println);
-      System.out.println("******************");
-      
-      cnt++;
+      iterations++;
     }
     while (changedNodes > 0);
 
-    assertThat(ret).containsExactly(
+    assertThat(ret).contains(
         new Pair<>(NullWritable.get(), new Text("HAV-[(MIA; 10)]-10-/MPX/HAV")),
         new Pair<>(NullWritable.get(), new Text("JFK-[(MIA; 60)]-30-/MPX/HAV/MIA/JFK")),
         new Pair<>(NullWritable.get(), new Text("MIA-[(JFK; 10)]-20-/MPX/HAV/MIA")), 
         new Pair<>(NullWritable.get(), new Text("MPX-[(JFK; 190),(HAV; 10)]-0")));
+    
+    assertThat(iterations).isEqualTo(4);
   }
-
-  /*
-   * MPX-[(JFK; 190),(HAV; 80),(FCO; 40)]-0 JFK-[(MIA; 60)]-INF HAV-[(MIA;
-   * 120),(LHR; 160),(JFK; 140)]-INF MIA-[(LHR; 135),(MPX; 110)]-INF LHR-[(DCA;
-   * 165),(MPX; 50)]-INF DCA-[(FCO; 124),(CDG; 140)]-INF FCO-[(LHR; 85),(HAV;
-   * 115),(CDG; 90)]-INF
-   * 
-   */
 
 }
