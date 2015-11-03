@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import static org.mdp.learn.hadoop.dijkstra.DijkstraConstants.*;
 
 public class DijkstraReducer extends Reducer<Text, Text, NullWritable, Text> {
 
@@ -12,51 +13,55 @@ public class DijkstraReducer extends Reducer<Text, Text, NullWritable, Text> {
 
   @Override
   protected void reduce(Text nodeId, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-    Integer minDistance = Integer.MAX_VALUE;
-    String shortest = "";
+    Integer minDistance = INFINITE_VALUE;
+    String shortestPath = "";
     Node node = null;
 
-    for (Text val : values) {
-      if (isNode(val)) {
-        String stringNode = val.toString().replace("VALUE=", "");
-        node = Node.parseNode(stringNode);
+    for (Text value : values) {
+      String stringValue = value.toString();
+      if (isNode(stringValue)) {
+        node = NodeTextTranslator.parse(stringValue.toString().replace(NODE_VALUE_IDENTIFIER, ""));
+
         if (node.getDistanceFromSource() < minDistance) {
           minDistance = node.getDistanceFromSource();
-          shortest = node.getShortestPath();
+          shortestPath = node.getShortestPath();
         }
       }
-      else {
-        Integer dst = getDistance(val);
-        String path = val.toString().contains("-") ? val.toString().split("-")[1] : "";
+      else { //EDGE = (DISTANCE-PATH)
+        Integer dst = getDistance(stringValue);
+        String path = getPath(stringValue);
+
         if (dst < minDistance) {
           minDistance = dst;
-          shortest = path;
+          shortestPath = path;
         }
       }
     }
 
     if (node.getDistanceFromSource() != minDistance) {
       context.getCounter(DijkstraCounters.CHANGED_NODES).increment(1);
+      node.setDistanceFromSource(minDistance);
     }
-    
-    if (!shortest.equals(node.getShortestPath())) {
-      node.setShortestPath(shortest);
-    }
-    
-    node.setDistanceFromSource(minDistance);
-    
-    row.set(node.toString());
 
+    if (!shortestPath.equals(node.getShortestPath())) {
+      node.setShortestPath(shortestPath);
+    }
+
+    row.set(node.toString());
     context.write(NullWritable.get(), row);
   }
 
-  private Integer getDistance(Text val) {
-    String dst = val.toString().split("-")[0];
-    return "INF".equals(dst) ? Integer.MAX_VALUE : Integer.parseInt(dst);
+  private boolean isNode(String val) {
+    return val.startsWith(NODE_VALUE_IDENTIFIER);
   }
 
-  private boolean isNode(Text val) {
-    return val.toString().startsWith("VALUE=");
+  private Integer getDistance(String val) {
+    String dst = val.split("-")[0];
+    return INFINITE.equals(dst) ? INFINITE_VALUE : Integer.parseInt(dst);
+  }
+
+  private String getPath(String stringValue) {
+    return stringValue.contains("-") ? stringValue.split("-")[1] : "";
   }
 
 }

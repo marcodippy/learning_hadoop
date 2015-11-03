@@ -1,41 +1,25 @@
 package org.mdp.learn.hadoop.dijkstra;
 
+import static org.mdp.learn.hadoop.dijkstra.DijkstraConstants.INFINITE_VALUE;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Node {
   private String     id;
-  private List<Edge> edges        = new ArrayList<>();
+  private List<Edge> edges;
   private Integer    distanceFromSource;
-  private String     shortestPath = "";
+  private String     shortestPath;
 
   public Node(String nodeId) {
     this.id = nodeId;
-  }
-
-  public static Node parseNode(String s) {
-    String[] fields = s.toString().split("-");
-
-    Node n = new Node(fields[0]);
-    n.setDistanceFromSource("INF".equals(fields[2]) ? Integer.MAX_VALUE : Integer.parseInt(fields[2]));
-    n.setEdges(getEdges(fields));
-    if (fields.length == 4) n.setShortestPath(fields[3].trim());
-
-    return n;
-  }
-
-  private static List<Edge> getEdges(String[] fields) {
-    String str = fields[1].replace("[", "").replace("]", "");
-    return str.isEmpty() ? new ArrayList<>() : Arrays.asList(str.split(",")).stream().map(Edge::parseEdge).collect(Collectors.toList());
+    this.edges = new ArrayList<>();
+    this.shortestPath = "";
   }
 
   @Override
   public String toString() {
-    String dst = distanceFromSource.toString();
-    if (distanceFromSource.equals(Integer.MAX_VALUE)) dst = "INF";
-    return id + "-[" + edges.stream().map(x -> x.toString()).collect(Collectors.joining(",")) + "]-" + dst + (shortestPath.isEmpty() ? "" : "-"+shortestPath);
+    return NodeTextTranslator.toString(this);
   }
 
   public String getId() {
@@ -52,6 +36,10 @@ public class Node {
 
   public void setDistanceFromSource(Integer distanceFromSource) {
     this.distanceFromSource = distanceFromSource;
+  }
+
+  public boolean isDistanceFromSourceInfinite() {
+    return INFINITE_VALUE.equals(distanceFromSource);
   }
 
   public List<Edge> getEdges() {
