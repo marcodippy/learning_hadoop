@@ -21,6 +21,7 @@
     <module>relational_joins</module>
     <module>inverted_index</module>
     <module>graph_bfs</module>
+    <module>dijkstra</module>
   </modules>
 
 	<properties>
