@@ -11,4 +11,5 @@ This is a collection of projects and notes I've created to learn Hadoop and Map 
 8. [Relational Joins](./relational_joins): {Reduce-side join (1to1, 1toN, NtoM), Map-side join, Memory-backed join, Distributed cache}
 9. [Inverted Index](./inverted_index)
 10. [Parallel Breadth First Search](./graph_bfs) 
-10. [Dijkstra](./dijkstra)
+11. [Dijkstra](./dijkstra)
+12. [Page Rank](./page_rank)

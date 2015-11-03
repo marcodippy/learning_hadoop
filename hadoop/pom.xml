@@ -22,6 +22,7 @@
     <module>inverted_index</module>
     <module>graph_bfs</module>
     <module>dijkstra</module>
+    <module>page_rank</module>
   </modules>
 
 	<properties>
