@@ -1,4 +1,4 @@
-package org.mdp.learn.hadoop.graph_bfs;
+package org.mdp.learn.hadoop.graph_bfs.not_weighted;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -15,6 +15,9 @@ import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.types.Pair;
 import org.junit.Before;
 import org.junit.Test;
+import org.mdp.learn.hadoop.graph_bfs.not_weighted.BfsCounters;
+import org.mdp.learn.hadoop.graph_bfs.not_weighted.BfsMapper;
+import org.mdp.learn.hadoop.graph_bfs.not_weighted.BfsReducer;
 
 public class BfsTest {
   private MapDriver<LongWritable, Text, LongWritable, Text> mapDriver;
