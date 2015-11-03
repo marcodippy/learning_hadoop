@@ -37,16 +37,14 @@ public class DijkstraReducer extends Reducer<Text, Text, NullWritable, Text> {
         }
       }
     }
-
+    
     if (node.getDistanceFromSource() != minDistance) {
       context.getCounter(DijkstraCounters.CHANGED_NODES).increment(1);
-      node.setDistanceFromSource(minDistance);
     }
 
-    if (!shortestPath.equals(node.getShortestPath())) {
-      node.setShortestPath(shortestPath);
-    }
-
+    node.setDistanceFromSource(minDistance);
+    node.setShortestPath(shortestPath);
+    
     row.set(node.toString());
     context.write(NullWritable.get(), row);
   }
