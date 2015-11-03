@@ -9,4 +9,6 @@ This is a collection of projects and notes I've created to learn Hadoop and Map 
 6. [Co-Occurrence matrix](./co_occurrence_matrix): {Co-Occurrence Matrix, Pair and Stripes}
 7. [Order Inversion](./order_inversion): {Co-Occurrence Matrix, Pair and Stripes, Order Inversion}
 8. [Relational Joins](./relational_joins): {Reduce-side join (1to1, 1toN, NtoM), Map-side join, Memory-backed join, Distributed cache}
-9. [Inverted Index](./inverted_index): 
+9. [Inverted Index](./inverted_index)
+10. [Parallel Breadth First Search](./graph_bfs) 
+10. [Dijkstra](./dijkstra)
