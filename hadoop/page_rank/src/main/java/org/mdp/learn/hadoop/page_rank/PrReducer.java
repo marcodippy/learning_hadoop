@@ -25,11 +25,21 @@ public class PrReducer extends Reducer<Text, Text, NullWritable, Text> {
         sumPageRanks += Double.parseDouble(stringValue);
       }
     }
+    updateCounterIfPageRankChanges(context, node, sumPageRanks);
 
     node.setPageRank(sumPageRanks);
 
     row.set(node.toString());
     context.write(NullWritable.get(), row);
+  }
+
+  private void updateCounterIfPageRankChanges(Context context, Node node, Double sumPageRanks) {
+    int pr = (int) (node.getPageRank() * PrConstants.PRECISION);
+    int newPr = (int) (sumPageRanks * PrConstants.PRECISION);
+
+    if (pr != newPr) {
+      context.getCounter(PrCounters.CHANGED_PAGE_RANKS).increment(1);
+    }
   }
 
   private boolean isNode(String val) {
