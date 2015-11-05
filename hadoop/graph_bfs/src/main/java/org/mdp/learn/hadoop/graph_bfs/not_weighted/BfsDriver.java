@@ -33,7 +33,7 @@ public class BfsDriver extends Configured implements Tool {
       
       iterations++;
       tmpInputFile = tmpOutputFile;
-      tmpOutputFile = tmpOutputFile+iterations;
+      tmpOutputFile = outputFile+iterations;
     } while (notDiscoveredNodes != 0);
     
     HdfsUtils.rename(getConf(), new Path(tmpInputFile), new Path(outputFile));
