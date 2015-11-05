@@ -7,16 +7,17 @@ import java.util.stream.Collectors;
 
 public abstract class NodeTextTranslator {
 
+  private static final String FIELD_SEPARATOR = ";";
   private static final int NODEID_INDEX = 0;
   private static final int LINKS_INDEX  = 1;
   private static final int PAGE_RANK    = 2;
 
   public static Node parse(String textNode) {
-    final String[] fields = textNode.toString().split("-");
+    final String[] fields = textNode.toString().split(FIELD_SEPARATOR);
 
     final Node n = new Node(fields[NODEID_INDEX]);
     n.setLinks(getLinks(fields));
-    n.setPageRank(Double.parseDouble(fields[PAGE_RANK].trim()));
+    n.setPageRank(Double.valueOf(fields[PAGE_RANK].trim()));
 
     return n;
   }
@@ -29,8 +30,8 @@ public abstract class NodeTextTranslator {
   public static String toString(Node node) {
     StringBuilder sb = new StringBuilder(node.getId());
 
-    sb.append("-").append(linksToString(node));
-    sb.append("-").append(node.getPageRank());
+    sb.append(FIELD_SEPARATOR).append(linksToString(node));
+    sb.append(FIELD_SEPARATOR).append(node.getPageRank());
 
     return sb.toString();
   }

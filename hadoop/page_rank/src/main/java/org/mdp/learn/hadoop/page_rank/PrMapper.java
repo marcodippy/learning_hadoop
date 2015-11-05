@@ -26,6 +26,9 @@ public class PrMapper extends Mapper<LongWritable, Text, Text, Text> {
         emitLink(context, destNodeId, pageRank);
       }
     }
+    else {
+      updateLostPageRankMass(node.getPageRank(), context);
+    }
   }
 
   private void emitNodeAsIs(Context context, String textValue, Node node) throws IOException, InterruptedException {
@@ -40,4 +43,8 @@ public class PrMapper extends Mapper<LongWritable, Text, Text, Text> {
     context.write(nodeId, val);
   }
 
+  private void updateLostPageRankMass(Double lostPageRank, Context context) {
+    int pr = (int) (lostPageRank * PrConstants.PRECISION);
+    context.getCounter(PrCounters.LOST_PAGE_RANK_MASS).increment(pr);
+  }
 }

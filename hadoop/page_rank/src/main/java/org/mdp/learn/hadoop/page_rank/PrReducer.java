@@ -10,6 +10,12 @@ import static org.mdp.learn.hadoop.page_rank.PrConstants.*;
 public class PrReducer extends Reducer<Text, Text, NullWritable, Text> {
 
   private Text row = new Text();
+  private long numberOfNodes;
+
+  @Override
+  protected void setup(Context context) throws IOException, InterruptedException {
+    numberOfNodes = Long.parseLong(context.getConfiguration().get("number_of_nodes", "-1"));
+  }
 
   @Override
   protected void reduce(Text nodeId, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -25,12 +31,20 @@ public class PrReducer extends Reducer<Text, Text, NullWritable, Text> {
         sumPageRanks += Double.parseDouble(stringValue);
       }
     }
-    updateCounterIfPageRankChanges(context, node, sumPageRanks);
+
+    updateCounters(context, node, sumPageRanks);
 
     node.setPageRank(sumPageRanks);
 
     row.set(node.toString());
     context.write(NullWritable.get(), row);
+  }
+
+  private void updateCounters(Context context, Node node, Double sumPageRanks) {
+    if (numberOfNodes == -1) {
+      context.getCounter(PrCounters.NUMBER_OF_NODES).increment(1);
+    }
+    updateCounterIfPageRankChanges(context, node, sumPageRanks);
   }
 
   private void updateCounterIfPageRankChanges(Context context, Node node, Double sumPageRanks) {
