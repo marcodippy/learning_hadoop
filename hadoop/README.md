@@ -13,3 +13,13 @@ This is a collection of projects and notes I've created to learn Hadoop and Map 
 10. [Parallel Breadth First Search](./graph_bfs) 
 11. [Dijkstra](./dijkstra)
 12. [Page Rank](./page_rank)
+
+
+- - - -
+- - - -
+
+# Resources #
+* *Hadoop: The Definitive Guide* (Tom White)
+* *Data-Intensive Text Processing with MapReduce* (J. Lin and C. Dyer)
+* *MapReduce Design Pattern* (D. Miner and A. Shook)
+* *Data Algorithms* (M. Parsian)
