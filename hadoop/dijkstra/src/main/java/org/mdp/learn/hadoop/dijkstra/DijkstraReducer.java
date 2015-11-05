@@ -38,7 +38,7 @@ public class DijkstraReducer extends Reducer<Text, Text, NullWritable, Text> {
       }
     }
     
-    if (node.getDistanceFromSource() != minDistance) {
+    if (!node.getDistanceFromSource().equals(minDistance)) {
       context.getCounter(DijkstraCounters.CHANGED_NODES).increment(1);
     }
 
