@@ -35,7 +35,6 @@ public class PrDriver extends Configured implements Tool {
         
         HdfsUtils.deleteIfExists(getConf(), new Path(tmpInputFile));
       }
-
       
       iterations++;
       tmpInputFile = tmpOutputFile;
