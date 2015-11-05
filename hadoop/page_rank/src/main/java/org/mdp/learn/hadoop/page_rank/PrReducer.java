@@ -9,18 +9,18 @@ import static org.mdp.learn.hadoop.page_rank.PrConstants.*;
 
 public class PrReducer extends Reducer<Text, Text, NullWritable, Text> {
 
-  private Text row = new Text();
-  private long numberOfNodes;
+  private Text   row = new Text();
+  private double singlePageProbability;
 
   @Override
   protected void setup(Context context) throws IOException, InterruptedException {
-    numberOfNodes = Long.parseLong(context.getConfiguration().get("number_of_nodes", "-1"));
+    singlePageProbability = 1d / context.getConfiguration().getLong("number_of_nodes", 0);
   }
 
   @Override
   protected void reduce(Text nodeId, Iterable<Text> values, Context context) throws IOException, InterruptedException {
     Node node = null;
-    Double sumPageRanks = 0d;
+    Double pageRank = PrConstants.RANDOM_JUMP_FACTOR * singlePageProbability;
 
     for (Text value : values) {
       String stringValue = value.toString();
@@ -28,28 +28,25 @@ public class PrReducer extends Reducer<Text, Text, NullWritable, Text> {
         node = NodeTextTranslator.parse(stringValue.toString().replace(NODE_VALUE_IDENTIFIER, ""));
       }
       else {
-        sumPageRanks += Double.parseDouble(stringValue);
+        pageRank += Double.parseDouble(stringValue);
       }
     }
 
-    updateCounters(context, node, sumPageRanks);
+    updateCounters(context, node, pageRank);
 
-    node.setPageRank(sumPageRanks);
+    node.setPageRank(pageRank);
 
     row.set(node.toString());
     context.write(NullWritable.get(), row);
   }
 
   private void updateCounters(Context context, Node node, Double sumPageRanks) {
-    if (numberOfNodes == -1) {
-      context.getCounter(PrCounters.NUMBER_OF_NODES).increment(1);
-    }
     updateCounterIfPageRankChanges(context, node, sumPageRanks);
   }
 
-  private void updateCounterIfPageRankChanges(Context context, Node node, Double sumPageRanks) {
+  private void updateCounterIfPageRankChanges(Context context, Node node, Double newPageRank) {
     int pr = (int) (node.getPageRank() * PrConstants.PRECISION);
-    int newPr = (int) (sumPageRanks * PrConstants.PRECISION);
+    int newPr = (int) (newPageRank * PrConstants.PRECISION);
 
     if (pr != newPr) {
       context.getCounter(PrCounters.CHANGED_PAGE_RANKS).increment(1);

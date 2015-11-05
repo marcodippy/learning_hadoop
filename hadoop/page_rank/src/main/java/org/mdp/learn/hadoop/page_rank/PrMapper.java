@@ -20,10 +20,10 @@ public class PrMapper extends Mapper<LongWritable, Text, Text, Text> {
     emitNodeAsIs(context, textValue, node);
 
     if (!node.getLinks().isEmpty()) {
-      Double pageRank = node.getPageRank() / node.getLinks().size();
+      Double pageRankContribution = PrConstants.DAMPING_FACTOR * (node.getPageRank() / node.getLinks().size());
 
       for (String destNodeId : node.getLinks()) {
-        emitLink(context, destNodeId, pageRank);
+        emitLink(context, destNodeId, pageRankContribution);
       }
     }
     else {
@@ -37,9 +37,9 @@ public class PrMapper extends Mapper<LongWritable, Text, Text, Text> {
     context.write(nodeId, val);
   }
 
-  private void emitLink(Context context, String destNodeId, Double pageRank) throws IOException, InterruptedException {
+  private void emitLink(Context context, String destNodeId, Double pageRankContribution) throws IOException, InterruptedException {
     nodeId.set(destNodeId);
-    val.set(pageRank.toString());
+    val.set(pageRankContribution.toString());
     context.write(nodeId, val);
   }
 
