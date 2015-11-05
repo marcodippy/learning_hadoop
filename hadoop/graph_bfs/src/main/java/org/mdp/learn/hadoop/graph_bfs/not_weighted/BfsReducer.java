@@ -34,7 +34,7 @@ public class BfsReducer extends Reducer<LongWritable, Text, NullWritable, Text> 
     row.set(node.toString());
     context.write(NullWritable.get(), row);
     
-    if (node.getDistanceFromSource() == Integer.MAX_VALUE)
+    if (node.getDistanceFromSource().equals(Integer.MAX_VALUE))
       context.getCounter(BfsCounters.NOT_DISCOVERED_NODES).increment(1);
   }
 
