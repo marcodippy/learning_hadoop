@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.mdp.learn</groupId>
@@ -16,14 +17,15 @@
 		<module>average_grade_revisited</module>
 		<module>moving_average</module>
 		<module>top_n_records</module>
-    <module>co_occurrence_matrix</module>
-    <module>order_inversion</module>
-    <module>relational_joins</module>
-    <module>inverted_index</module>
-    <module>graph_bfs</module>
-    <module>dijkstra</module>
-    <module>page_rank</module>
-  </modules>
+		<module>co_occurrence_matrix</module>
+		<module>order_inversion</module>
+		<module>relational_joins</module>
+		<module>inverted_index</module>
+		<module>graph_bfs</module>
+		<module>dijkstra</module>
+		<module>page_rank</module>
+		<module>common_friends</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

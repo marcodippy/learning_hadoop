@@ -13,6 +13,7 @@ This is a collection of projects and notes I've created to learn Hadoop and Map 
 10. [Parallel Breadth First Search](./graph_bfs): {Single source shortest path}
 11. [Dijkstra](./dijkstra)
 12. [Page Rank](./page_rank)
+13. [Common friends](./common_friends)
 
 
 - - - -
