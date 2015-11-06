@@ -11,8 +11,8 @@ The PageRank of a page *n* is
 where:
 * **JUMPING_FACTOR** is the probability that a random surfer executes a random jump to the page
 * **DAMPING_FACTOR** is the probability that a random surfer lands at the page by following a link (it's equal to 1-JUMPING_FACTOR)
-* **P(m)/C(m) ** is the probability that a random surfer will arrive at the page *n* from *m* 
-* **Σ (P(m)/C(m)) ** is the summation of all the contributions from all the pages that link to *n*
+* **P(m)/C(m)** is the probability that a random surfer will arrive at the page *n* from *m* 
+* **Σ (P(m)/C(m))** is the summation of all the contributions from all the pages that link to *n*
 
   
 The structure of the algorithm is similar to the [parallel breadth-first search](../graph_bfs): at each iteration each node passes its PageRank contribution to other nodes that it is connected to; the process terminates when PageRank values don't change anymore (convergence within some tolerance), or until an arbitrary configured max number of iterations is reached.  
