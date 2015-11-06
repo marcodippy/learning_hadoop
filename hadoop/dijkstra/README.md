@@ -14,7 +14,7 @@ You've given a file with airports and flights:
 where:
 * "-" is the field separator
 * the first field is the departure airport
-* the second field is a list of reachable airport with the relative cost of the flight
+* the second field is a list of reachable airports with the relative cost of the flight
 
 Find the cheapest way to flight from Milan (MPX) to New York (JFK). As we are young and strong, we don't care about stopovers :) 
 	
