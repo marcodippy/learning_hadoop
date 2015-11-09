@@ -25,6 +25,7 @@
 		<module>page_rank</module>
 		<module>common_friends</module>
     <module>cwbtiab</module>
+    <module>frequently_bought_together</module>
   </modules>
 
 	<properties>

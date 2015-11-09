@@ -15,6 +15,7 @@ This is a collection of projects and notes I've created to learn Hadoop and Map 
 12. [Page Rank](./page_rank)
 13. [Common friends](./common_friends)
 14. [Customers Who Bought This Item Also Bought](./cwbtiab): {Recommendation Engine}
+14. [Frequently Bought Together](./frequently_bought_together): {Recommendation Engine}
 
 
 - - - -
