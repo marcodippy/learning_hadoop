@@ -13,4 +13,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.mdp.learn</groupId>
+			<artifactId>commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>
