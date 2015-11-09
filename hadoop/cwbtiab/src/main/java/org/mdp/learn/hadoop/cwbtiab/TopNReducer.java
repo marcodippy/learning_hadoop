@@ -1,45 +1,43 @@
 package org.mdp.learn.hadoop.cwbtiab;
 
 import java.io.IOException;
-import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.MapWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.mdp.learn.hadoop.commons.PrintableMapWritable;
 
-public class TopNReducer extends Reducer<Text, MapWritable, Text, MapWritable> {
-  private MapWritable              map  = new PrintableMapWritable();
-  private static final IntWritable ZERO = new IntWritable(0);
+public class TopNReducer extends Reducer<Text, MapWritable, NullWritable, Text> {
+  private Integer TOP;
+  private Text    products = new Text();
+
+  @Override
+  protected void setup(Context context) throws IOException, InterruptedException {
+    TOP = context.getConfiguration().getInt("top_n", 3);
+  }
 
   @Override
   protected void reduce(Text key, Iterable<MapWritable> values, Context context) throws IOException, InterruptedException {
+    Map<String, Integer> map = new HashMap<>();
+    String product = key.toString();
+
     for (MapWritable mp : values) {
-      mp.forEach((prd, val) -> incrementCount(prd.toString(), ((IntWritable) val).get()));
+      mp.forEach((prd, val) -> map.put(prd.toString(), map.getOrDefault(prd.toString(), 0) + ((IntWritable) val).get()));
     }
-    emitTopN(context, key, 5);
+
+    emitTopN(context, map, product);
   }
 
-  private void emitTopN(Context context, Text key, int TOP) throws IOException, InterruptedException {
+  private void emitTopN(Context context, Map<String, Integer> map, String product) throws IOException, InterruptedException {
     TopNQueue topNQueue = new TopNQueue(TOP);
-
-    for (Entry<Writable, Writable> entry : map.entrySet()) {
-      topNQueue.addCount(new Count(entry.getKey().toString(), ((IntWritable) entry.getValue()).get()));
-    }
-
-    for (Count cnt : topNQueue.getTopN()) {
-      map.put(new Text(cnt.getProduct()), new IntWritable(cnt.getCount()));
-    }
-
-    context.write(key, map);
-    map.clear();
+    map.entrySet().forEach(entry -> topNQueue.addCount(new Count(entry.getKey(), entry.getValue())));
+    String alsoBoughtProducts = topNQueue.getTopN().stream().map(cnt -> cnt.toString()).collect(Collectors.joining(","));
+    products.set(product + "-" + alsoBoughtProducts);
+    context.write(NullWritable.get(), products);
   }
 
-  private void incrementCount(String prod, Integer incr) {
-    Text tmpKey = new Text(prod);
-    IntWritable count = (IntWritable) map.getOrDefault(tmpKey, ZERO);
-    map.put(tmpKey, new IntWritable(count.get() + incr));
-  }
 }

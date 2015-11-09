@@ -30,4 +30,9 @@ public class Count {
     this.count = count;
   }
 
+  @Override
+  public String toString() {
+    return "(" + product + "," + count + ")";
+  }
+
 }

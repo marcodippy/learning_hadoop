@@ -22,6 +22,7 @@ public class CwbtiabDriver extends Configured implements Tool {
 
     if (groupProds.waitForCompletion(true)) {
       Job topNJob = getTopNJob(tmpOutputFile, outputFile);
+      HdfsUtils.deleteIfExists(getConf(), new Path(tmpOutputFile));
       return topNJob.waitForCompletion(true) ? 0 : 1;
     }
 
@@ -58,8 +59,8 @@ public class CwbtiabDriver extends Configured implements Tool {
 
     job.setMapOutputKeyClass(Text.class);
     job.setMapOutputValueClass(MapWritable.class);
-    job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(MapWritable.class);
+    job.setOutputKeyClass(NullWritable.class);
+    job.setOutputValueClass(Text.class);
 
     HdfsUtils.deleteIfExists(getConf(), new Path(outputFile));
 
