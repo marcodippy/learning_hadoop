@@ -1,11 +1,10 @@
 package org.mdp.learn.hadoop.frequently_bought_together;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -22,13 +21,11 @@ public class FBTMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     List<String> products = Arrays.asList(fields[1].split(","));
     products.sort(Comparator.naturalOrder());
 
-    Set<String> combinations = new HashSet<>();
+    List<String> combinations = new ArrayList<>();
 
-    for (String prd1 : products) {
-      for (String prd2 : products) {
-        if (!prd1.equals(prd2)) {
-          combinations.add(buildKey(prd1, prd2));
-        }
+    for (int i = 0; i < products.size(); i++) {
+      for (int j = i+1; j < products.size(); j++) {
+        combinations.add(products.get(i)+","+products.get(j));
       }
     }
 
@@ -36,10 +33,6 @@ public class FBTMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
       pair.set(pairOfProduct);
       context.write(pair, ONE);
     }
-  }
-
-  private String buildKey(String prd1, String prd2) {
-    return prd1.compareTo(prd2) < 0 ? prd1 + "," + prd2 : prd2 + "," + prd1;
   }
 
 }
