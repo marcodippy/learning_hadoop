@@ -1,5 +1,5 @@
 # Exercise #
-Given a list of transactions with products associated to it, find, for each product, the products that are frequently bought with it (in the same transaction)
+Given a list of transactions with the associated products, find, for each product, the products that are frequently bought with it (in the same transaction)
 - - - -
 - - - -
 
